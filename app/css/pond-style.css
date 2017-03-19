@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Griffy');
+
+body {
+	background-color: #5e9959;
+	background-image: url("../img/binding-light.png");
+}
+
+/* Common */
+.margin-left-10 {
+	margin-left: 10px;
+}
+
+.margin-right-10 {
+	margin-right: 10px;
+}
+
+.km-alert-error {
+	color: red;
+}
+
+.alert-small {
+	padding: 7px;
+}
+
+/* Login */
+#loginForm > .panel {
+	width: 530px;
+}
+
+.frog-img-large {
+	background-image: url("../img/frog.png");
+	background-size: contain;
+	height: 150px;
+	width: 150px;
+	background-repeat: no-repeat; 
+}
+
+.kokak-title {
+	font-family: Griffy;
+	font-size: 42pt;
+	line-height: 114%;
+}
+
+.kokak-subtitle {
+	font-style: italic;
+    font-size: 19px;
+    color: #6d6d6d;
+    text-align: center;
+}
+
+/* Registration */
+.registrationForm > .panel {
+	width: 530px;
+}

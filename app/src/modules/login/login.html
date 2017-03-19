@@ -1,0 +1,43 @@
+<div style="margin-top: 100px" ng-controller="loginCtrl as login">
+	<div class="container">
+		<form id="loginForm" autocomplete="off" class="clearfix">
+			<div class="panel panel-default" style="margin: 0 auto;">
+				<div class="panel-heading"><b>Login</b></div>
+				<div class="panel-body">
+					<div class="center" style="width: 500px;">
+						<div class="row">
+							<div class="col-md-8">
+								<div class="form-group"" style="padding-left:35px; padding-top: 30px;">
+									<div class="kokak-title">Kokak Lush</div>
+									<div class="kokak-subtitle" ng-if="!login.isFrog">For pond admins.</div>
+									<div class="kokak-subtitle" ng-if="login.isFrog">For vibrant, little frogs.</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group pull-right" style="padding-right:35px">
+									<div class="frog-img-large"></div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+					  				<div class="alert alert-danger alert-small">Username and Password do not match.</div>
+					  			</div>
+								<div class="form-group">
+					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Username" ng-model="login.username" required/>
+					  			</div>
+					  			<div class="form-group">
+				  					<input type="password" id="key1" name="key1" class="form-control vdr-field" maxlength="50" placeholder="Password" ng-model="login.userKey" autocomplete="new-password" required/>
+					  			</div>
+				  			</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+			    	<input type="button" class="btn btn-success" value="Register" ng-click="login.register()"/>
+			    	<input type="submit" class="btn btn-primary pull-right margin-left-10" value="Login" ng-click="login()"/>
+			    	<input type="button" class="btn btn-default pull-right" value="Forgot Password" ng-click="forgot()"/>
+			  	</div>
+			</div>
+		</form>
+	</div>
+</div>

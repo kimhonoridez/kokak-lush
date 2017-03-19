@@ -1,0 +1,16 @@
+{
+  "name": "My Pond",
+  "authors": [
+    "Kim Honoridez"
+  ],
+  "description": "\"Pond Management - Admin Client\"",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.6.2",
+    "bootstrap": "^3.3.7",
+    "angular-ui-router": "^0.4.2"
+  }
+}

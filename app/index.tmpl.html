@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kokak Lush</title>
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="app/css/pond-style.css">
+	
+	<link rel="stylesheet" type="text/css" href="vendor/kendo/styles/kendo.common.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/kendo/styles/kendo.default.min.css">
+</head>
+
+<body ng-app="pondManagementSystem">
+	<div ui-view></div>
+	
+	<script src="vendor/jquery.min.js"></script>
+	<script src="vendor/angular.min.js"></script>
+	<script src="vendor/angular-ui-router.min.js"></script>
+	<script src="vendor/ui-bootstrap.js"></script>
+	<script src="vendor/ui-bootstrap-tpls.js"></script>
+	<script src="vendor/kendo/js/kendo.all.min.js"></script>
+	<script src="app/src/pondManagementSystem.config.js"></script>
+	 
+	<!-- START: Shared Config -->
+	<!-- include: "type": "js", "files": "app/src/shared/**/*.config.js" -->
+	<!-- END: Shared Config -->
+
+	<!-- START: Module Config -->
+	<!-- include: "type": "js", "files": "app/src/modules/**/*.config.js" -->
+	<!-- END: Module Config -->
+
+	<!-- START: Shared Service -->
+	<!-- include: "type": "js", "files": "app/src/shared/**/*.svc.js" -->
+	<!-- include: "type": "js", "files": "app/src/shared/**/*.factory.js" -->
+	<!-- END: Shared Service -->
+
+	<!-- START: Module Service -->
+	<!-- include: "type": "js", "files": "app/src/modules/**/*.svc.js" -->
+	<!-- include: "type": "js", "files": "app/src/modules/**/*.factory.js" -->
+	<!-- END: Module Service -->
+
+	<!-- START: Shared Controller -->
+	<!-- include: "type": "js", "files": "app/src/shared/**/*.ctrl.js" -->
+	<!-- END: Shared Controller -->
+
+	<!-- START: Module Controller -->
+	<!-- include: "type": "js", "files": "app/src/modules/**/*.ctrl.js" -->
+	<!-- END: Module Controller -->
+</body>
+
+</html>

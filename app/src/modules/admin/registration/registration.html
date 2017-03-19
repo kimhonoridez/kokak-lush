@@ -1,0 +1,77 @@
+<div style="margin-top: 50px" ng-controller="pondAdminRegistrationCtrl as registration">
+	<div class="container">
+		<form id="registrationForm" autocomplete="off" class="registrationForm">
+			<div class="panel panel-default" style="margin: 0 auto;">
+				<div class="panel-heading"><b>Pond Admin Registration</b></div>
+				<div class="panel-body">
+					<div class="center" style="width: 500px;">
+						<div class="row">
+							<div class="col-md-12" ng-if="registration.errorCode === registration.ErrorType.ERR_REQUIRED_FIELD">
+								<div class="form-group">
+					  				<div class="alert alert-danger alert-small">Please input required fields.</div>
+					  			</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Username *" ng-model="registration.data.username" required/>
+					  			</div>
+			  				</div>
+			  				<div class="col-md-6">
+			  					<div class="form-group">
+					  				<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_USERNAME_IN_USE">Username is already taken.</span>
+					  				<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_USERNAME_INVALID">Username should have 7-25 characters containing letters and numbers only.</span>
+					  			</div>
+			  				</div>
+		  				</div>
+		  				<div class="row">
+			  				<div class="col-md-6">
+					  			<div class="form-group">
+				  					<input type="password" id="key1" name="key1" class="form-control vdr-field" maxlength="50" placeholder="Password *" ng-model="registration.data.userKey1" autocomplete="new-password" required/>
+					  			</div>
+				  			</div>
+				  			<div class="col-md-6">
+				  				<div class="form-group">
+					  				<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_PASSWORD_MISMATCH">Passwords do not match.</span>
+					  				<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_PASSWORD_INVALID">Password should have 7-25 characters containing upper case and lower case letters as well as numbers.</span>
+					  			</div>
+				  			</div>
+			  			</div>
+			  			<div class="row">
+							<div class="col-md-6">
+					  			<div class="form-group" style="margin-bottom: 0px;">
+				  					<input type="password" id="key2" name="key2" class="form-control vdr-field" maxlength="50" placeholder="Confirm Password *" ng-model="registration.data.userKey2" autocomplete="new-password" required/>
+					  			</div>
+				  			</div>
+				  			<div class="col-md-6">
+					  			<div class="form-group"></div>
+				  			</div>
+						</div>
+					  	<hr/>
+						<div class="row">
+							<div class="col-md-6">
+					  			<div class="form-group">
+					  				<input type="text" id="firstName *" name="firstName" class="form-control vdr-field" maxlength="25" placeholder="First Name" ng-model="registration.data.firstName" required/>
+					  			</div>
+				  			</div>
+				  			<div class="col-md-6">
+					  			<div class="form-group">
+					  				<input type="text" id="lastName *" name="lastName" class="form-control vdr-field" maxlength="25" placeholder="Last Name" ng-model="registration.data.lastName" required/>
+					  			</div>
+					  			<div class="form-group">
+				  					<div class="checkbox">
+								  		<label><input type="checkbox" ng-model="registration.data.isMaster" ng-value-true="true" ng-value-false="false">Master User</label>
+									</div>
+					  			</div>
+				  			</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+			    	<input type="button" class="btn btn-danger" value="Back" ng-click="registration.back()"/>
+			    	<input type="submit" class="btn btn-primary pull-right margin-left-10" value="Register" ng-click="registration.register()"/>
+			    	<input type="button" class="btn btn-default pull-right" value="Clear" ng-click="registration.clear()"/>
+			  	</div>
+			</div>
+		</form>
+	</div>
+</div>

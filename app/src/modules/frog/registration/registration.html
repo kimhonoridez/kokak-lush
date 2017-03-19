@@ -1,0 +1,72 @@
+<div style="margin-top: 50px" ng-controller="frogRegistrationCtrl as registration">
+	<div class="container">
+		<form id="registrationForm" autocomplete="off" class="registrationForm">
+			<div class="panel panel-default" style="margin: 0 auto;">
+				<div class="panel-heading"><b>Pond Admin Registration</b></div>
+				<div class="panel-body">
+					<div class="center" style="width: 500px;">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Username" ng-model="login.username" required/>
+					  			</div>
+			  				</div>
+			  				<div class="col-md-6">
+			  					<div class="form-group">
+					  				<span class="km-alert-error">Username is already taken.</span>
+					  				<span class="km-alert-error">Username should have 7-15 characters containing letters and numbers only.</span>
+					  			</div>
+			  				</div>
+		  				</div>
+		  				<div class="row">
+			  				<div class="col-md-6">
+					  			<div class="form-group">
+				  					<input type="password" id="key1" name="key1" class="form-control vdr-field" maxlength="50" placeholder="Password" ng-model="login.userKey" autocomplete="new-password" required/>
+					  			</div>
+				  			</div>
+				  			<div class="col-md-6">
+				  				<div class="form-group">
+					  				<span class="km-alert-error">Passwords do not match.</span>
+					  			</div>
+				  			</div>
+			  			</div>
+			  			<div class="row">
+							<div class="col-md-6">
+					  			<div class="form-group" style="margin-bottom: 0px;">
+				  					<input type="password" id="key1" name="key1" class="form-control vdr-field" maxlength="50" placeholder="Confirm Password" ng-model="login.userKey" autocomplete="new-password" required/>
+					  			</div>
+				  			</div>
+				  			<div class="col-md-6">
+					  			<div class="form-group"></div>
+				  			</div>
+						</div>
+					  	<hr/>
+						<div class="row">
+							<div class="col-md-6">
+					  			<div class="form-group">
+					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="First Name" ng-model="login.username" required/>
+					  			</div>
+					  			<div class="form-group">
+					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Birth Date" ng-model="login.username" required/>
+					  			</div>
+				  			</div>
+				  			<div class="col-md-6">
+					  			<div class="form-group">
+					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Last Name" ng-model="login.username" required/>
+					  			</div>
+					  			<div class="form-group">
+					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Gender" ng-model="login.username" required/>
+					  			</div>
+				  			</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+			    	<input type="button" class="btn btn-danger" value="Back" ng-click="registration.back()"/>
+			    	<input type="submit" class="btn btn-primary pull-right margin-left-10" value="Register" ng-click="registration.register()"/>
+			    	<input type="button" class="btn btn-default pull-right" value="Clear" ng-click="registration.clear()"/>
+			  	</div>
+			</div>
+		</form>
+	</div>
+</div>
