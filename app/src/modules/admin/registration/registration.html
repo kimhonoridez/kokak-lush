@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default nav-kokak">
 	<div class="container-fluid">
 		<div class="navbar-header-kokak">
-			<a class="navbar-kokak" href="#">Kokak Lush</a>
+			<span class="navbar-kokak">Kokak Lush</span>
 		</div>
 	</div>
 </nav>
@@ -18,6 +18,11 @@
 					  				<div class="alert alert-danger alert-small">Please input required fields.</div>
 					  			</div>
 							</div>
+							<div class="col-md-12" ng-if="registration.errorCode === registration.ErrorType.ERR_GENERAL">
+								<div class="form-group">
+					  				<div class="alert alert-danger alert-small">System error has occurred.</div>
+					  			</div>
+							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Username *" ng-model="registration.data.username" ng-blur="registration.checkUsername()" required/>
@@ -25,8 +30,9 @@
 			  				</div>
 			  				<div class="col-md-6">
 			  					<div class="form-group">
-					  				<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_USERNAME_IN_USE">Username is already taken.</span>
-					  				<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_USERNAME_INVALID">Username should have 7-25 characters containing letters and numbers only.</span>
+			  						<span class="km-alert-success" ng-if="registration.msg.username === registration.ErrorType.OK_USERNAME">Username is available.</span>
+					  				<span class="km-alert-error" ng-if="registration.msg.username === registration.ErrorType.ERR_USERNAME_IN_USE">Username is already taken.</span>
+					  				<span class="km-alert-error" ng-if="registration.msg.username === registration.ErrorType.ERR_USERNAME_INVALID">Username should have 7-25 characters containing letters and/or numbers only.</span>
 					  			</div>
 			  				</div>
 		  				</div>
@@ -38,9 +44,10 @@
 				  			</div>
 				  			<div class="col-md-6">
 				  				<div class="form-group">
-					  				<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_PASSWORD_MISMATCH">Passwords do not match.</span>
-					  				<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_PASSWORD_INVALID">Password should have 7-25 characters (upper and lower case letters, and numbers).</span>
-									<span class="km-alert-error" ng-if="registration.errorCode === registration.ErrorType.ERR_PASSWORD_RELATED">Password should not be related to your username or personal details.</span>
+				  					<span class="km-alert-success" ng-if="registration.msg.password === registration.ErrorType.OK_PASSWORD_MATCH">Passwords match.</span>
+					  				<span class="km-alert-error" ng-if="registration.msg.password === registration.ErrorType.ERR_PASSWORD_MISMATCH">Passwords do not match.</span>
+					  				<span class="km-alert-error" ng-if="registration.msg.password === registration.ErrorType.ERR_PASSWORD_INVALID">Should have 7-25 characters (combination of upper and lower case letters, and numbers).</span>
+									<span class="km-alert-error" ng-if="registration.msg.password === registration.ErrorType.ERR_PASSWORD_RELATED">Password should not be related to your username or personal details.</span>
 					  			</div>
 				  			</div>
 			  			</div>
@@ -64,11 +71,6 @@
 				  			<div class="col-md-6">
 					  			<div class="form-group">
 					  				<input type="text" id="lastName" name="lastName" class="form-control vdr-field" maxlength="25" placeholder="Last Name *" ng-model="registration.data.lastName" required/>
-					  			</div>
-					  			<div class="form-group">
-				  					<div class="checkbox">
-								  		<label><input type="checkbox" ng-model="registration.data.isMaster" ng-value-true="true" ng-value-false="false">Master User</label>
-									</div>
 					  			</div>
 				  			</div>
 						</div>

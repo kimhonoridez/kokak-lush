@@ -2,6 +2,7 @@
 	'use strict';
 
 	angular.module('shared', [
-		'registrationValidation'
+		'registrationValidation',
+		'userInfo'
 	]);
 })();

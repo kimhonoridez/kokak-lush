@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('admin')
-		.controller('pondAdminRegistrationCtrl', ['$scope', '$state', 'RegistrationValidationSvc', 'AdminRegistrationSvc', function ($scope, $state, RegistrationValidationSvc, AdminRegistrationSvc) {
+		.controller('pondAdminRegistrationCtrl', ['$scope', '$state', 'LIP_LOCK', 'RegistrationValidationSvc', 'AdminRegistrationSvc', function ($scope, $state, LIP_LOCK, RegistrationValidationSvc, AdminRegistrationSvc) {
 
 			var ErrorType = {
 				NONE: 0,
@@ -11,7 +11,9 @@
 				ERR_PASSWORD_INVALID: 3,
 				ERR_USERNAME_IN_USE: 4,
 				ERR_USERNAME_INVALID: 5,
-				ERR_PASSWORD_RELATED: 6
+				ERR_PASSWORD_RELATED: 6,
+				OK_USERNAME: 7,
+				OK_PASSWORD_MATCH: 7
 			};
 
 			var vm = this;
@@ -19,9 +21,16 @@
 			vm.errorCode = ErrorType.NONE;
 			vm.data = {};
 
+			vm.msg = {
+				username: ErrorType.NONE,
+				password: ErrorType.NONE
+			};
+
 			function isInputValid() {
 				var retVal = false;
 				var tmpData = angular.copy(vm.data);
+
+				// Initialize Message Codes
 				vm.errorCode = ErrorType.NONE;
 
 				// Check required fields
@@ -31,6 +40,8 @@
 					if (RegistrationValidationSvc.isUsernameValid(tmpData.username)) {
 						// Check password match
 						if (tmpData.userKey1 === tmpData.userKey2) {
+							vm.msg.password = ErrorType.OK_PASSWORD_MATCH;
+
 							// Check password validity
 							if (RegistrationValidationSvc.isPasswordValid(tmpData)) {
 								// Check if password is related to personal info
@@ -40,22 +51,22 @@
 								}
 								else {
 									// Password is related to personal info
-									vm.errorCode = ErrorType.ERR_PASSWORD_RELATED;
+									vm.msg.password = ErrorType.ERR_PASSWORD_RELATED;
 								}
 							}
 							else {
 								// Password is invalid
-								vm.errorCode = ErrorType.ERR_PASSWORD_INVALID;
+								vm.msg.password = ErrorType.ERR_PASSWORD_INVALID;
 							}
 						}
 						else{
 							// Passwords mismatch
-							vm.errorCode = ErrorType.ERR_PASSWORD_MISMATCH;
+							vm.msg.password = ErrorType.ERR_PASSWORD_MISMATCH;
 						}
 					}
 					else {
 						// Username is invalid
-						vm.errorCode = ErrorType.ERR_USERNAME_INVALID;
+						vm.msg.username = ErrorType.ERR_USERNAME_INVALID;
 					}
 
 				}
@@ -72,34 +83,51 @@
 					// Reconstruct data
 					var data = angular.copy(vm.data);
 
+					// Encrypt password (A better encryption method should be used instead of this.)
+					data.password = CryptoJS.AES.encrypt(data.userKey1, LIP_LOCK).toString();
+
 					// Remove unnecessary data
 					delete data.userKey1;
 					delete data.userKey2;
 
-					// Encrypt password
-					var encData = "";
-					data.password = encData;
-
 					// Proceed registration
-					console.log("Registration Success");
+					AdminRegistrationSvc.register(data).then(function (res) {
+						$state.go('login', {registrationSuccess: true});
+					}, function (res) {
+						if (res.data && res.data.code) {
+							if (res.data.code === 'PA_E000') {
+								vm.msg.username = ErrorType.ERR_USERNAME_IN_USE;
+							}
+							else if (res.data.code === 'E_001') {
+								vm.errorCode = ErrorType.ERR_REQUIRED_FIELD;
+							}
+						}
+						else {
+							vm.errorCode = ErrorType.ERR_GENERAL;
+						}
+					});
 				}
 			};
 
 			vm.checkUsername = function () {
+				vm.msg.username = ErrorType.NONE;
+
 				// Check if username is valid
 				if (RegistrationValidationSvc.isUsernameValid(vm.data.username)) {
 					// Check if username is already taken
-					if (true) {
-						
-					}
-					else {
-						// Username is invalid
-						vm.errorCode = ErrorType.ERR_USERNAME_IN_USE;
-					}
+					AdminRegistrationSvc.findByUsername(vm.data.username).then(function (res) {
+						if (res.data.result === true) {
+							// Username is taken
+							vm.msg.username = ErrorType.ERR_USERNAME_IN_USE;
+						}
+						else {
+							vm.msg.username = ErrorType.OK_USERNAME;
+						}
+					});
 				}
 				else {
 					// Username is invalid
-					vm.errorCode = ErrorType.ERR_USERNAME_INVALID;
+					vm.msg.username = ErrorType.ERR_USERNAME_INVALID;
 				}
 			};
 			
@@ -107,22 +135,24 @@
 				if (vm.data.userKey1 && vm.data.userKey2) {
 					// Check password match
 					if (vm.data.userKey1 === vm.data.userKey2) {
+						vm.msg.password = ErrorType.OK_PASSWORD_MATCH;
+
 						// Check password validity
 						if (RegistrationValidationSvc.isPasswordValid(vm.data)) {
 							// Check if password is related to personal info
 							if (!RegistrationValidationSvc.isPasswordNotRelated(vm.data)) {
 								// Password is related to personal info
-								vm.errorCode = ErrorType.ERR_PASSWORD_RELATED;
+								vm.msg.password = ErrorType.ERR_PASSWORD_RELATED;
 							}
 						}
 						else {
 							// Password is invalid
-							vm.errorCode = ErrorType.ERR_PASSWORD_INVALID;
+							vm.msg.password = ErrorType.ERR_PASSWORD_INVALID;
 						}
 					}
 					else{
 						// Passwords mismatch
-						vm.errorCode = ErrorType.ERR_PASSWORD_MISMATCH;
+						vm.msg.password = ErrorType.ERR_PASSWORD_MISMATCH;
 					}
 				}
 			};

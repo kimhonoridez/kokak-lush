@@ -2,6 +2,7 @@
 	'use strict';
 
 	const express = require('express');
+	const session = require('express-session');
 	const bodyParser = require('body-parser');
 
 	var app = express();
@@ -11,6 +12,7 @@
 	    extended: true
 	}));
 	app.use(bodyParser.json());
+	app.use(session({secret: 'k0k@KLu$h'}));
 
 	var PondService = require('./service/Main.svc.js');
 	require('./rest/Main.rest.js')(app, PondService);

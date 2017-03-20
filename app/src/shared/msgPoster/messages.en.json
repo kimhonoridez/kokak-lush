@@ -1,0 +1,12 @@
+{
+	"E_000": "A system error has occurred.",
+	"E_002": "One of the inputs is invalid or empty.",
+
+	"PA_E000": "Username is already taken.",
+	"LI_E001": "Username and password do not match.",
+	"LI_E002": "User is not active.",
+	"LI_E003": "User does not exist.",
+	"PA_E000": "",
+	"PA_E000": "",
+	"PA_E000": "",
+}

@@ -20,13 +20,18 @@
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-					  				<div class="alert alert-danger alert-small">Username and Password do not match.</div>
+					  				<div class="alert alert-danger alert-small" ng-if="login.loginFail === 'LI_E001'"><b>ERROR.</b> Username and Password do not match.</div>
+					  				<div class="alert alert-danger alert-small" ng-if="login.loginFail === 'LI_E002'"><b>ERROR.</b> User is not active.</div>
+					  				<div class="alert alert-danger alert-small" ng-if="login.loginFail === 'LI_E003'"><b>ERROR.</b> User does not exist.</div>
+					  				<div class="alert alert-danger alert-small" ng-if="login.systemError"><b>ERROR.</b> System error occurred.</div>
+					  				<div class="alert alert-danger alert-small" ng-if="login.isEmptyRequiredFields"><b>ERROR.</b> Please input username and password.</div>
+					  				<div class="alert alert-info alert-small" ng-if="login.isFromRegistration"><b>Registration Success.</b> Please login to proceed.</div>
 					  			</div>
 								<div class="form-group">
-					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Username" ng-model="login.username" required/>
+					  				<input type="text" id="username" name="username" class="form-control vdr-field" maxlength="25" placeholder="Username" ng-model="login.username" ng-keypress="login.clearMsgs()" required/>
 					  			</div>
 					  			<div class="form-group">
-				  					<input type="password" id="key1" name="key1" class="form-control vdr-field" maxlength="50" placeholder="Password" ng-model="login.userKey" autocomplete="new-password" required/>
+				  					<input type="password" id="key1" name="key1" class="form-control vdr-field" maxlength="50" placeholder="Password" ng-model="login.userKey" ng-keypress="login.clearMsgs()" autocomplete="new-password" required/>
 					  			</div>
 				  			</div>
 						</div>
@@ -34,8 +39,8 @@
 				</div>
 				<div class="panel-footer">
 			    	<input type="button" class="btn btn-success" value="Register" ng-click="login.register()"/>
-			    	<input type="submit" class="btn btn-primary pull-right margin-left-10" value="Login" ng-click="login()"/>
-			    	<input type="button" class="btn btn-default pull-right" value="Forgot Password" ng-click="forgot()"/>
+			    	<input type="button" class="btn btn-primary pull-right margin-left-10" value="Login" ng-click="login.login()"/>
+			    	<input type="button" class="btn btn-default pull-right" disabled="disabled" value="Forgot Password"/>
 			  	</div>
 			</div>
 		</form>

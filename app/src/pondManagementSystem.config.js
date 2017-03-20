@@ -6,13 +6,14 @@
 			'FROG': 1, 
 			'ADMIN': 2
 		})
+		.constant('LIP_LOCK', 'Frog!@34##567HopU*Iu')
 		.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
 			$stateProvider
 				// main state of the application
 				.state('app', {
 					url: '/app',
 					abstract: true,
-					templateUrl: 'app/modules/layout/app.html'
+					templateUrl: 'app/src/modules/layout/app.html'
 				});
 				
 			// Disable HTML5 mode

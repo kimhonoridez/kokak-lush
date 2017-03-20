@@ -18,6 +18,10 @@ body {
 	color: red;
 }
 
+.km-alert-success {
+	color: green;
+}
+
 .alert-small {
 	padding: 7px;
 }

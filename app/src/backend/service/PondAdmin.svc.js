@@ -20,6 +20,28 @@
 			});
 		};
 
+		PondAdmin.usernameExists = function (username, successCallback, failCallback) {
+			DB.connect(function (err, client, done) {
+				client.query('SELECT * FROM teacher WHERE username=$1', [username], function (err, result) {
+					done();
+
+					if (err) {
+						console.error('ERROR: PondAdmin Get By Username', err);
+						failCallback(err);
+						return;
+					}
+
+					var retVal = false;
+
+					if (result.rows.length) {
+						retVal = true;
+					}
+
+					successCallback(retVal);
+				});
+			});
+		};
+
 		PondAdmin.getAll = function (successCallback, failCallback) {
 			DB.connect(function (err, client, done) {
 				client.query('SELECT * FROM teacher', [], function (err, result) {
@@ -67,13 +89,11 @@
 
 		PondAdmin.insert = function (data, successCallback, failCallback) {
 			DB.connect(function (err, client, done) {
-				var sql = "INSERT INTO teacher(username, password, first_name, last_name, is_master, status, updated_by, updated_date) ";
-				sql += "VALUES($1, $2, $3, $4, $5, $6, $7, NOW())";
+				var sql = "INSERT INTO teacher(username, password, first_name, last_name, is_master, status, key, updated_by, updated_date) ";
+				sql += "VALUES($1, $2, $3, $4, $5, $6, $7, $8, NOW())";
 
-				// encrypt password
-				var encyptedPass = data.password;
-
-				var dataSet = [data.username, encyptedPass, data.firstName, data.lastName, data.isMaster, data.status, data.userId];
+				var key = data.username + "#-#" + data.password;
+				var dataSet = [data.username, data.password, data.firstName, data.lastName, data.isMaster, data.status, key, data.userId];
 
 				client.query(sql, dataSet, function (err, result) {
 					done();

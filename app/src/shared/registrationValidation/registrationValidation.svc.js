@@ -56,11 +56,14 @@
 
 			vm.isPasswordNotRelated = function (inputData) {
 				var retVal = true;
+				var data = inputData.userKey1;
+				var upper = data.toUpperCase();
 
 				// Password must not be related to username, first name or last name
-				if (upper.indexOf(inputData.username.toUpperCase()) >= 0 ||
+				if (inputData.username && inputData.firstName && inputData.lastName &&
+					(upper.indexOf(inputData.username.toUpperCase()) >= 0 ||
 					upper.indexOf(inputData.firstName.toUpperCase()) >= 0 ||
-					upper.indexOf(inputData.lastName.toUpperCase()) >= 0) {
+					upper.indexOf(inputData.lastName.toUpperCase()) >= 0)) {
 					retVal = false;
 				}
 
@@ -69,10 +72,9 @@
 
 			vm.isUsernameValid = function (username) {
 				var retVal = true;
-				var criteria = /^[a-zA-Z0-9]+$/;
 
 				// Username must be 7 - 25 characters long and should be alphanumeric
-				if (username.length < 7 || username.length > 25 || !criteria.test(username)) {
+				if (username && (username.length < 7 || username.length > 25 || !(/^[a-zA-Z0-9]+$/.test(username)))) {
 					retVal = false;
 				}
 

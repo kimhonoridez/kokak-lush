@@ -7,7 +7,10 @@
 				// main state of the application
 				.state('login', {
 					url: '/login',
-					templateUrl: 'app/src/modules/login/login.html'
+					templateUrl: 'app/src/modules/login/login.html',
+					params: {
+						registrationSuccess: null
+					}
 				}); 
 		}]);
 })();
