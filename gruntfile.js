@@ -37,33 +37,25 @@
 				}
 			},
 			watch: {
+				options: {
+					livereload: 1337,
+					spawn: false
+				},
 				main: {
 					files: 'app/*.html',
-					tasks: ['includeSource'],
-					options: {
-						livereload: true,
-					}
+					tasks: ['includeSource']
 				},
 				html: {
 					files: 'app/src/**/*.html',
-					tasks: ['copy:html'],
-					options: {
-						livereload: true,
-					}
+					tasks: ['copy:html']
 				},
 				js: {
 					files: ['app/src/*.js', 'app/src/modules/**/*.js', 'app/src/shared/**/*.js'],
-					tasks: ['copy:js'],
-					options: {
-						livereload: true,
-					}
+					tasks: ['copy:js']
 				},
 				css: {
 					files: ['app/css/**/*'],
-					tasks: ['copy:css'],
-					options: {
-						livereload: true,
-					}
+					tasks: ['copy:css']
 				}
 			},
 			includeSource: {

@@ -10,7 +10,7 @@
 
 				// Check if any of the fields is empty
 				if (!data.username || !data.userKey1 || !data.userKey2 || !data.firstName || !data.lastName) {
-					retval = true;
+					retVal = true;
 				}
 
 				return retVal;
@@ -21,7 +21,7 @@
 
 				// Check if any of the fields is empty
 				if (!data.username || !data.userKey1 || !data.userKey2 || !data.firstName || !data.lastName || !data.birthDate || !data.gender) {
-					retval = true;
+					retVal = true;
 				}
 
 				return retVal;
@@ -50,10 +50,17 @@
 				else if (!(upper !== data && data.toLowerCase() !== data && criteria.test(data))) {
 					retVal = false;
 				}
+
+				return retVal;
+			};
+
+			vm.isPasswordNotRelated = function (inputData) {
+				var retVal = true;
+
 				// Password must not be related to username, first name or last name
-				else if (upper.indexOf(inputData.username.toUpperCase()) >= 0 || 
-						upper.indexOf(inputData.firstName.toUpperCase()) >= 0 || 
-						upper.indexOf(inputData.lastName.toUpperCase()) >= 0) {
+				if (upper.indexOf(inputData.username.toUpperCase()) >= 0 ||
+					upper.indexOf(inputData.firstName.toUpperCase()) >= 0 ||
+					upper.indexOf(inputData.lastName.toUpperCase()) >= 0) {
 					retVal = false;
 				}
 

@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "window": {
+    "icon": "app/img/frog-icon.png"
+  },
   "author": "Kim Honoridez",
   "license": "ISC",
   "dependencies": {

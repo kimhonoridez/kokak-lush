@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Griffy');
 
 body {
-	background-color: #5e9959;
+	background-color: #b10574;
 	background-image: url("../img/binding-light.png");
 }
 
@@ -51,4 +51,21 @@ body {
 /* Registration */
 .registrationForm > .panel {
 	width: 530px;
+}
+
+.nav-kokak {
+	background-image: -webkit-linear-gradient(top,#af3fc3 0,#71267F 100%);
+	border-radius: 0px;
+	border: 0px;
+	box-shadow: 0px 0px 10px rgba(10,10,10,0.3);
+}
+
+.navbar-kokak {
+	font-family: Griffy;
+	color: white;
+	font-size: 20pt;
+}
+
+.navbar-header-kokak {
+	margin-top: 5px;
 }

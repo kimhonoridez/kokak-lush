@@ -10,7 +10,8 @@
 				ERR_PASSWORD_MISMATCH: 2,
 				ERR_PASSWORD_INVALID: 3,
 				ERR_USERNAME_IN_USE: 4,
-				ERR_USERNAME_INVALID: 5
+				ERR_USERNAME_INVALID: 5,
+				ERR_PASSWORD_RELATED: 6
 			};
 
 			var vm = this;
@@ -25,29 +26,38 @@
 
 				// Check required fields
 				if (!RegistrationValidationSvc.hasEmpty($scope.$root, tmpData)) {
-					// Check password match
-					if (tmpData.userKey1 === tmpData.userKey2) {
-						// Check password validity
-						if (RegistrationValidationSvc.isPasswordValid(tmpData)) {
-							// Check if username is valid
-							if (RegistrationValidationSvc.isUsernameValid(tmpData.username)) {
-								// Input data valid
-								retVal = true;
+
+					// Check if username is valid
+					if (RegistrationValidationSvc.isUsernameValid(tmpData.username)) {
+						// Check password match
+						if (tmpData.userKey1 === tmpData.userKey2) {
+							// Check password validity
+							if (RegistrationValidationSvc.isPasswordValid(tmpData)) {
+								// Check if password is related to personal info
+								if (RegistrationValidationSvc.isPasswordNotRelated(tmpData)) {
+									// Input data valid
+									retVal = true;
+								}
+								else {
+									// Password is related to personal info
+									vm.errorCode = ErrorType.ERR_PASSWORD_RELATED;
+								}
 							}
 							else {
-								// Username is invalid
-								vm.errorCode = ErrorType.ERR_USERNAME_INVALID;
+								// Password is invalid
+								vm.errorCode = ErrorType.ERR_PASSWORD_INVALID;
 							}
 						}
-						else {
-							// Password is invalid
-							vm.errorCode = ErrorType.ERR_PASSWORD_INVALID;
+						else{
+							// Passwords mismatch
+							vm.errorCode = ErrorType.ERR_PASSWORD_MISMATCH;
 						}
 					}
-					else{
-						// Passwords mismatch
-						vm.errorCode = ErrorType.ERR_PASSWORD_MISMATCH;
+					else {
+						// Username is invalid
+						vm.errorCode = ErrorType.ERR_USERNAME_INVALID;
 					}
+
 				}
 				else {
 					// At least one required field is empty
@@ -72,6 +82,48 @@
 
 					// Proceed registration
 					console.log("Registration Success");
+				}
+			};
+
+			vm.checkUsername = function () {
+				// Check if username is valid
+				if (RegistrationValidationSvc.isUsernameValid(vm.data.username)) {
+					// Check if username is already taken
+					if (true) {
+						
+					}
+					else {
+						// Username is invalid
+						vm.errorCode = ErrorType.ERR_USERNAME_IN_USE;
+					}
+				}
+				else {
+					// Username is invalid
+					vm.errorCode = ErrorType.ERR_USERNAME_INVALID;
+				}
+			};
+			
+			vm.checkPassword = function () {
+				if (vm.data.userKey1 && vm.data.userKey2) {
+					// Check password match
+					if (vm.data.userKey1 === vm.data.userKey2) {
+						// Check password validity
+						if (RegistrationValidationSvc.isPasswordValid(vm.data)) {
+							// Check if password is related to personal info
+							if (!RegistrationValidationSvc.isPasswordNotRelated(vm.data)) {
+								// Password is related to personal info
+								vm.errorCode = ErrorType.ERR_PASSWORD_RELATED;
+							}
+						}
+						else {
+							// Password is invalid
+							vm.errorCode = ErrorType.ERR_PASSWORD_INVALID;
+						}
+					}
+					else{
+						// Passwords mismatch
+						vm.errorCode = ErrorType.ERR_PASSWORD_MISMATCH;
+					}
 				}
 			};
 
