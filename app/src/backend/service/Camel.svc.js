@@ -30,6 +30,9 @@
 			});
 
 			return retVal;
+		},
+		hasSpecialChars : function (str) {
+			return !(/^[A-Za-z0-9 _%-]+$/.test(str));
 		}
 	};
 })();

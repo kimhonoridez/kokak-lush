@@ -18,6 +18,9 @@
 				img: {
 					files: [{expand: true, src: ['app/img/**/*.*'], dest: 'dist/'}]
 				},
+				data: {
+					files: [{expand: true, src: ['app/src/**/*.json'], dest: 'dist/'}]
+				},
 				vendor: {
 					files: [
 						{expand: true, src: ['vendor/**/*'], dest: 'dist/'},
@@ -57,6 +60,10 @@
 				css: {
 					files: ['app/css/**/*'],
 					tasks: ['copy:css']
+				},
+				css: {
+					files: ['app/src/**/*.json'],
+					tasks: ['copy:data']
 				}
 			},
 			includeSource: {

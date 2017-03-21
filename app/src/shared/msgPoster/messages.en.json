@@ -1,12 +1,13 @@
 {
 	"E_000": "A system error has occurred.",
 	"E_002": "One of the inputs is invalid or empty.",
+	"E_003": "Input contains invalid characters.",
 
 	"PA_E000": "Username is already taken.",
+	"PA_E001": "Search criteria must have at least 3 characters.",
+	"PA_E002": "Please input at least one search criteria.",
+
 	"LI_E001": "Username and password do not match.",
 	"LI_E002": "User is not active.",
-	"LI_E003": "User does not exist.",
-	"PA_E000": "",
-	"PA_E000": "",
-	"PA_E000": "",
+	"LI_E003": "User does not exist."
 }

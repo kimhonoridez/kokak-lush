@@ -6,6 +6,12 @@
 			'FROG': 1, 
 			'ADMIN': 2
 		})
+		.constant('MsgType', {
+			SUCCESS: 0,
+			ERROR: 1,
+			WARN: 2,
+			INFO: 3
+		})
 		.constant('LIP_LOCK', 'Frog!@34##567HopU*Iu')
 		.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {
 			$stateProvider
@@ -22,8 +28,16 @@
 			// Set default state
 			$urlRouterProvider.otherwise('/login');
 		}])
-		.run(['$rootScope', 'USER_TYPE', function ($rootScope, USER_TYPE) {
+		.run(['$rootScope', 'USER_TYPE', 'MsgType', 'MsgPosterSvc', function ($rootScope, USER_TYPE, MsgType, MsgPosterSvc) {
 			$rootScope.CURRENT_USER_TYPE = USER_TYPE.ADMIN;
+			$rootScope.MsgType = MsgType;
+
+			$rootScope.hasSpecialChars = function (str) {
+				return !(/^[A-Za-z0-9 _%-]+$/.test(str));
+			};
+
+			MsgPosterSvc.init();
+
 			var win = nw.Window.get();
 			win.maximize();
 		}]);

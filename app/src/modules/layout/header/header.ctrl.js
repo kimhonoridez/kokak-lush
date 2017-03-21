@@ -13,11 +13,11 @@
                 if ($(e.target.parentElement).hasClass('open')) {
                     // close
                     $(e.target.parentElement).removeClass('open');
-                    e.target.setAttribute('aria-expanded', 'false');
+                    $(e.target).closest('.dropdown-toggle')[0].setAttribute('aria-expanded', 'false');
                 }
                 else {
                     $(e.target.parentElement).addClass('open');
-                    e.target.setAttribute('aria-expanded', 'true');
+                    $(e.target).closest('.dropdown-toggle')[0].setAttribute('aria-expanded', 'true');
                 }
             };
         }]);

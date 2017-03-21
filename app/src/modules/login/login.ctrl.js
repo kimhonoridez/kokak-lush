@@ -14,6 +14,19 @@
 				vm.isFromRegistration = true;
 			}
 
+			vm.displayLogin = false;
+
+			// Check if session is available
+			loginSvc.test().then(function (res) {
+				// Has existing session
+				userInfoSvc.setUserInfo(res.data.userInfo);
+				$state.go('app.dashboard');
+			}, function (res) {
+				// No session
+				console.log('No session');
+				vm.displayLogin = true;
+			});
+
 			vm.clearMsgs = function () {
 				vm.isFromRegistration = false;
 				vm.loginFail = false;

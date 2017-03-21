@@ -12,7 +12,7 @@
 	    extended: true
 	}));
 	app.use(bodyParser.json());
-	app.use(session({secret: 'k0k@KLu$h'}));
+	app.use(session({secret: 'k0k@KLu$h', cookie: {}}));
 
 	var PondService = require('./service/Main.svc.js');
 	require('./rest/Main.rest.js')(app, PondService);

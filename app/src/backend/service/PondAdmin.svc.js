@@ -20,6 +20,58 @@
 			});
 		};
 
+		PondAdmin.getById = function (id, successCallback, failCallback) {
+			DB.connect(function (err, client, done) {
+				client.query('SELECT * FROM teacher WHERE teacher_id=$1', [id], function (err, result) {
+					done();
+
+					if (err) {
+						console.error('ERROR: PondAdmin Get By Id', err);
+						failCallback(err);
+						return;
+					}
+
+					successCallback(result);
+				});
+			});
+		};
+
+		PondAdmin.search = function (criteria, successCallback, failCallback) {
+			DB.connect(function (err, client, done) {
+				var sql = 'SELECT teacher_id, first_name, last_name FROM teacher WHERE ';
+				//var sql = 'SELECT teacher.teacher_id, teacher.first_name, teacher.last_name, COUNT(pond.) FROM teacher LEFT JOIN pond ON pond.teacher_id = teacher.teacher_id WHERE ';
+				var params = [];
+
+				if (criteria.firstName) {
+					sql += "UPPER(first_name) LIKE $1 ";
+					params.push(criteria.firstName.toUpperCase());
+				}
+
+				if (criteria.lastName) {
+					if (criteria.firstName) {
+						sql += "AND UPPER(last_name) LIKE $2";
+					}
+					else {
+						sql += "UPPER(last_name) LIKE $1";
+					}
+					params.push(criteria.lastName.toUpperCase());
+				}
+
+
+				client.query(sql, params, function (err, result) {
+					done();
+
+					if (err) {
+						console.error('ERROR: PondAdmin Search', err);
+						failCallback(err);
+						return;
+					}
+
+					successCallback(result);
+				});
+			});
+		};
+
 		PondAdmin.usernameExists = function (username, successCallback, failCallback) {
 			DB.connect(function (err, client, done) {
 				client.query('SELECT * FROM teacher WHERE username=$1', [username], function (err, result) {
@@ -44,7 +96,7 @@
 
 		PondAdmin.getAll = function (successCallback, failCallback) {
 			DB.connect(function (err, client, done) {
-				client.query('SELECT * FROM teacher', [], function (err, result) {
+				client.query('SELECT teacher_id, first_name, last_name FROM teacher', [], function (err, result) {
 					done();
 
 					if (err) {

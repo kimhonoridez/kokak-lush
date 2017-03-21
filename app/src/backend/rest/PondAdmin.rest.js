@@ -7,8 +7,9 @@
 		Router.post('/apiOut/pondAdmin', insert);
 		Router.get('/apiOut/pondAdmin/username/:username', checkUsername);
 		Router.get('/apiOut/pondAdmin/login', login);
+		Router.get('/apiOut/pondAdmin/test', test);
 
-		Router.get('/api/pondAdmin', getAll);
+		Router.get('/api/pondAdmin/search', search);
 
 		// Get the complete list of pond admins
 		function getAll(req, res) {
@@ -81,6 +82,7 @@
 					PondAdminSvc.getByUsername(tmp.username, function (result) {
 						if (result.rows.length) {
 							var userData = result.rows[0];
+							userData = Camel.camelizeKeys(userData);
 							// Check password
 							var userPass = RegistrationUtil.getActualPass(userData.password);
 							var dbPass = RegistrationUtil.getActualPass(tmp.password);
@@ -88,13 +90,12 @@
 
 								// Check if user is active
 								if (userData.status === true) {
-									delete userData.password;
-									delete userData.key;
-									delete userData.username;
+									cleanup(userData);
 
 									req.session.userId = userData.teacherId;
+									req.session.userType = "ADMIN";
 
-									res.status(200).json({code: "SUCCESS", userInfo: Camel.camelizeKeys(userData)});
+									res.status(200).json({code: "SUCCESS", userInfo: userData});
 								}
 								else {
 									// User is inactive
@@ -126,8 +127,79 @@
 			}
 		}
 
-		function jsonToDb() {
+		function cleanup (userData) {
+			delete userData.password;
+			delete userData.key;
+			delete userData.username;
+		}
 
+		function test (req, res) {
+			console.log(req.session);
+			if (req.session.userId) {
+				console.log("Session Available: " + req.session.userId);
+
+				if (req.session.userType === "ADMIN") {
+					PondAdminSvc.getById(parseInt(req.session.userId), function (result) {
+						if (result.rows.length) {
+							var userData = result.rows[0];
+							cleanup(userData);
+							res.status(200).json({code: "SUCCESS", userInfo: Camel.camelizeKeys(userData)});
+						}
+						else {
+							// User does not exist
+							res.status(401).json({code: "UNAUTHORIZED"});
+						}
+					}, function (err) {
+						res.status(500).json({code: "E_000"});
+					});
+				}
+				else {
+					res.status(401).json({code: "UNAUTHORIZED"});
+				}
+				
+			}
+			else {
+				res.status(401).json({code: "UNAUTHORIZED"});
+			}
+		}
+
+		function search (req, res) {
+			var criteria = req.query;
+
+			if (!criteria.firstName && !criteria.lastName) {
+				// Criteria is empty. Get all.
+				PondAdminSvc.getAll(function (data) {
+					for (var i = 0; i < data.rows.length; i++) {
+						data.rows[i] = Camel.camelizeKeys(data.rows[i]);
+					}
+
+					res.json(data.rows);
+				}, function (err) {
+					res.status(500).json({code: "E_000"});
+				});
+					
+			}
+			else if ((criteria.firstName && criteria.firstName.length < 3) || 
+					(criteria.lastName && criteria.firstName.length < 3)) {
+				// Criteria must have at least 3 characters
+				res.status(500).json({code: "PA_E001"});
+			}
+			else if ((criteria.firstName && Camel.hasSpecialChars(criteria.firstName.length)) || 
+					(criteria.lastName && Camel.hasSpecialChars(criteria.firstName.length))) {
+				res.status(500).json({code: "E_003"});
+			}
+			else {
+				// Proceed search
+				PondAdminSvc.search(criteria, function (data) {
+					for (var i = 0; i < data.rows.length; i++) {
+						data.rows[i] = Camel.camelizeKeys(data.rows[i]);
+					}
+
+					res.json(data.rows);
+				}, function (err) {
+					res.status(500).json({code: "E_000"});
+				});
+			}
 		}
 	};
 })();

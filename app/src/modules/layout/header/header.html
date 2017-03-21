@@ -5,24 +5,20 @@
 			<span class="navbar-kokak">Kokak Lush</span>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#" ui-sref="app.dashboard" class="bold">Dashboard</a></li>
-				<li><a href="#" class="bold">Manage Users</a></li>
-				<li><a href="#" class="bold">Ponds</a></li>
-				<li><a href="#" class="bold">Enrolments</a></li>
+				<li><a ui-sref="app.dashboard" class="bold">Dashboard</a></li>
+				<li><a ui-sref="app.searchAdmin" class="bold">Pond Admins</a></li>
+				<li><a ui-sref="app.searchPond" class="bold">Ponds</a></li> 
+				<li><a class="bold">Enrolments</a></li>
 
-				<li class="dropdown margin-left-30">
-					<a class="dropdown-toggle" ng-click="vm.noAction($event)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				<li class="dropdown margin-left-30" uib-dropdown>
+					<a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						<div class="head-user-container">
 							<span class="user-icon"></span>
 							<span class="head-user-title">{{ vm.userName }}</span> <span class="caret"></span>
 						</div>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Separated link</a></li>
+						<li><a href="#">Logout</a></li>
 					</ul>
 				</li>
 			</ul>

@@ -17,7 +17,7 @@
 					if ($scope.messages.length) {
 						$scope.messages.shift();
 					}
-				}, 5000);
+				}, 1500);
 			});
 		}]);
 })();

@@ -3,6 +3,7 @@
 
 	angular.module('shared', [
 		'registrationValidation',
-		'userInfo'
+		'userInfo',
+		'msgPoster'
 	]);
 })();

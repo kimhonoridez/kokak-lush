@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('admin')
-		.controller('pondAdminRegistrationCtrl', ['$scope', '$state', 'LIP_LOCK', 'RegistrationValidationSvc', 'AdminRegistrationSvc', function ($scope, $state, LIP_LOCK, RegistrationValidationSvc, AdminRegistrationSvc) {
+		.controller('pondAdminRegistrationCtrl', ['$scope', '$state', 'LIP_LOCK', 'RegistrationValidationSvc', 'AdminSvc', function ($scope, $state, LIP_LOCK, RegistrationValidationSvc, AdminSvc) {
 
 			var ErrorType = {
 				NONE: 0,

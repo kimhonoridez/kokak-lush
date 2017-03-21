@@ -21,6 +21,22 @@
 				return $http(req);
 			};
 
+			vm.test = function () {
+				console.log("testing");
+				var req = {
+					method: 'GET'
+				};
+
+				if ($rootScope.CURRENT_USER_TYPE === USER_TYPE.FROG) {
+					req.url = 'apiOut/frog/test';
+				}
+				else {
+					req.url = 'apiOut/pondAdmin/test';
+				}
+
+				return $http(req);
+			};
+
 			return vm;
 		}]);
 })();
