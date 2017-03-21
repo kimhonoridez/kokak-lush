@@ -94,7 +94,7 @@
 
 									req.session.userId = userData.teacherId;
 
-									res.status(200).json({code: "SUCCESS", userInfo: userData});
+									res.status(200).json({code: "SUCCESS", userInfo: Camel.camelizeKeys(userData)});
 								}
 								else {
 									// User is inactive

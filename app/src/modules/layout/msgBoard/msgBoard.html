@@ -1,3 +1,4 @@
 <div>
+	<div class="alert alert-success"role="alert">Please input required fields.</div>
 	<div class="alert" ng-class="{'alert-success': item.type == 0, 'alert-danger': item.type == 1, 'alert-warning': item.type == 2, 'alert-info': item.type == 3}" role="alert" ng-repeat="item in messages">{{ item.content }}</div>
 </div>

@@ -8,6 +8,7 @@
 	
 	angular.module('layout', [
 		'msgBoard',
+		'header',
 		'footer'
 	]);
 })();
