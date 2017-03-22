@@ -14,6 +14,15 @@
 				userInfo = data;
 			};
 
+			vm.logout = function () {
+				var req = {
+					method: 'POST',
+					url: 'apiOut/logout'
+				};
+
+				return $http(req);
+			};
+
 			return vm;
 		}]);
 })();

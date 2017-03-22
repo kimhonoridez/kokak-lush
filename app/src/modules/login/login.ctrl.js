@@ -14,6 +14,10 @@
 				vm.isFromRegistration = true;
 			}
 
+			if ($state.params.status) {
+				vm.loginFail = $state.params.status;
+			}
+
 			vm.displayLogin = false;
 
 			// Check if session is available

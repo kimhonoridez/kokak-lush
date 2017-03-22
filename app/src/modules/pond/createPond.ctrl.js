@@ -8,20 +8,33 @@
     angular.module('pond')
         .controller('createPondCtrl', ['$scope', '$state', 'MsgPosterSvc', 'PondSvc', function ($scope, $state, MsgPosterSvc, PondSvc) {
             var vm = this;
+            vm.stateParams = angular.copy($state.params);
 
             vm.data = {};
 
-            vm.isOtherPondAdmin = false;
+            $scope.isOtherPondAdmin = false;
             vm.pondAdmin = "";
             
+            // Setup pond details
             if ($state.params.pond) {
-                vm.data.pondName = $state.params.pond.pondName;
-                vm.data.maxFrogs = $state.params.pond.maxFrogs;
-                $scope.pondData = $state.params.pond;
+                vm.data.pondName = vm.stateParams.pond.pondName;
+                vm.data.maxFrogs = vm.stateParams.pond.maxFrogs;
+                $scope.pondData = angular.copy(vm.stateParams.pond);
             }
 
+            // Setup Pond Admin details if applicable
+			if (vm.stateParams.pondAdminId) {
+				$scope.isOtherPondAdmin = true;
+
+				vm.pondAdmin = {
+					pondAdminId: vm.stateParams.pondAdminId,
+					pondAdminName: vm.stateParams.pondAdminName,
+					pondAdminCriteria: vm.stateParams.pondAdminCriteria
+				};
+			}
+
             vm.back = function () {
-                $state.go('app.searchPond');
+                $state.go('app.searchPond', angular.copy($state.params));
             };
 
             vm.clear = function () {

@@ -2,10 +2,21 @@
 	'use strict';
 
 	angular.module('pond')
-		.controller('searchPondCtrl', ['$scope', '$state', 'PondSvc', 'MsgPosterSvc', function ($scope, $state, PondSvc, MsgPosterSvc) {
+		.controller('searchPondCtrl', ['$scope', '$state', '$timeout', 'PondSvc', 'MsgPosterSvc', function ($scope, $state, $timeout, PondSvc, MsgPosterSvc) {
 			var vm = this;
 
 			vm.criteria = {};
+
+			vm.stateParams = $state.params;
+
+			// Setup Pond Admin details if applicable
+			if (vm.stateParams.pondAdminId) {
+				vm.pondAdmin = {
+					pondAdminId: vm.stateParams.pondAdminId,
+					pondAdminName: vm.stateParams.pondAdminName,
+					pondAdminCriteria: vm.stateParams.pondAdminCriteria
+				};
+			}
 
 			vm.clear = function () {
 				vm.criteria = {};
@@ -16,12 +27,38 @@
 				$state.go('app.createPond');
 			};
 
+			vm.back = function () {
+				var param = {};
+
+				if (vm.pondAdmin) {
+					param.pondAdminCriteria = vm.pondAdmin.pondAdminCriteria;
+				}
+
+				$state.go('app.searchPondAdmin', param);
+			};
+
 			$scope.searchPondAdminGridOptions = {
 				dataSource: new  kendo.data.DataSource({
                     transport: {
                         read: function (options) {
+                        	// Initialize data
+                        	if (vm.stateParams.criteria) {
+                        		vm.criteria = vm.stateParams.criteria || {};
+                        	}
+
+                        	if (vm.pondAdmin) {
+                        		vm.criteria.pondAdminId = vm.pondAdmin.pondAdminId;
+                        	}
+
 							PondSvc.search(vm.criteria).then(function (res) {
 								options.success(res.data.result);
+
+								if (vm.stateParams.criteria) {
+									$timeout(function () {
+										$scope.searchPondAdminGrid.dataSource.page(vm.stateParams.page);
+										vm.stateParams.criteria = undefined;
+									}, 100);
+								}
 							}, function (res) {
 								if (res.data.code) {
 									MsgPosterSvc.errorMsgCode(res.data.code);
@@ -85,11 +122,10 @@
 			$scope.viewDetails = function (e) {
 				e.preventDefault();
 
-				var param = {
-					criteria: angular.copy(vm.criteria),
-					page: $scope.searchPondAdminGrid.dataSource.page(),
-					pond: this.dataItem.toJSON()
-				};
+				var param = angular.copy(vm.pondAdmin) || {};
+				param.criteria = angular.copy(vm.criteria);
+				param.page = $scope.searchPondAdminGrid.dataSource.page();
+				param.pond = this.dataItem.toJSON();
 
 				$state.go('app.createPond', param);
 			};

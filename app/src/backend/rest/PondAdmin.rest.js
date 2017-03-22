@@ -4,6 +4,7 @@
 	module.exports = function (Router, Camel, PondAdminSvc) {
 		const RegistrationUtil = require('../util/RegistrationUtil.js')();
 
+		Router.post('/apiOut/logout', logout);
 		Router.post('/apiOut/pondAdmin', insert);
 		Router.get('/apiOut/pondAdmin/username/:username', checkUsername);
 		Router.get('/apiOut/pondAdmin/login', login);
@@ -64,6 +65,14 @@
 			}, function(err) {
 				res.status(500).json({code: "E_000"});
 			});
+		}
+
+		function logout (req, res) {
+			req.session.userId = undefined;
+			req.session.userType = undefined;
+			req.session.remove();
+			console.log("[Logout] Removing session.");
+			res.status(200).json({code: "SUCCESS"});
 		}
 
 		function login (req, res) {

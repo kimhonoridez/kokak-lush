@@ -169,3 +169,7 @@ body {
 .panel-footer > .btn.pull-right {
 	margin-left: 10px;
 }
+
+.panel-footer > div > .btn.pull-right {
+	margin-left: 10px;
+}

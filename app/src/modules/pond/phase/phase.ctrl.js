@@ -6,8 +6,54 @@
     'use strict';
 
     angular.module('pond')
-        .controller('phaseCtrl', ['$scope', 'PondSvc', 'MsgPosterSvc', function ($scope, PondSvc, MsgPosterSvc) {
+        .controller('phaseCtrl', ['$scope', '$uibModal', 'PondSvc', 'MsgPosterSvc', function ($scope, $uibModal, PondSvc, MsgPosterSvc) {
             var vm = this;
+
+            var columns = [{
+                    field: "seqNo",
+                    title: "Seq No"
+                },
+                {
+                    field: "phaseName",
+                    title: "Phase Name"
+                },
+                {
+                    field: "startDate",
+                    title: "Start Date",
+                    template: "#= startDate.substr(0, 10) #"
+                },
+                {
+                    field: "endDate",
+                    title: "End Date",
+                    template: "#= endDate.substr(0, 10) #"
+                },
+                {
+                    command: {
+                        template: '<input type="button" class="btn btn-primary" value="View Questionnaire" ng-click="viewQuestionnaire($event)"/>'
+                    },
+                    title: " ",
+                    width: "250px"
+            }];
+
+            if ($scope.$parent.isOtherPondAdmin) {
+                columns.pop();
+            }
+
+            $scope.viewQuestionnaire = function (e) {
+                e.preventDefault();
+
+                var modalInstance = $uibModal.open({
+                    templateUrl : '/app/src/modules/pond/questionnaire/create/createQuestionnaire.html',
+                    controller: 'createQuestionnaireCtrl as vm',
+                    resolve: {
+                        data: this.dataItem.toJSON()
+                    }
+                }).result.then(function () {
+                    // Do Nothing
+                }, function () {
+                    // Do Nothing
+                });
+            };
 
             $scope.frogPhaseGridOptions = {
                 dataSource: new  kendo.data.DataSource({
@@ -29,31 +75,7 @@
                 }),
                 sortable: true,
                 pageable: true,
-                columns: [{
-                        field: "seqNo",
-                        title: "Seq No"
-                    },
-                    {
-                        field: "phaseName",
-                        title: "Phase Name"
-                    },
-                    {
-                        field: "startDate",
-                        title: "Start Date",
-                        template: "#= startDate.substr(0, 10) #"
-                    },
-                    {
-                        field: "endDate",
-                        title: "End Date",
-                        template: "#= endDate.substr(0, 10) #"
-                    },
-                    {
-                        command: {
-                            template: '<input type="button" class="btn btn-primary" value="Update" ng-click="mate($event)"/>'
-                        },
-                        title: " ",
-                        width: "250px"
-                    }]
+                columns: columns
             };
         }]);
 })();

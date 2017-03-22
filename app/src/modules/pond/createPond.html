@@ -3,20 +3,15 @@
         <div class="panel-heading heading-big" ng-if="!pondData">Create New Pond</div>
         <div class="panel-heading heading-big" ng-if="pondData">Pond Details</div>
         <div class="panel-body">
-            <div class="row" ng-if="create.isOtherPondAdmin">
-                <div class="col-md-4">
+            <div class="row">
+            	<div class="col-md-4" ng-if="isOtherPondAdmin">
                     <div class="form-group">
                         <label class="col-md-4">Pond Admin</label>
                         <div class="col-md-8">
-                            <input type="text" maxlength="25" placeholder="Pond Admin" class="form-control" disabled="disabled" ng-model="create.pondAdmin"/>
+                            <input type="text" maxlength="25" placeholder="Pond Admin" class="form-control" disabled="disabled" ng-model="create.pondAdmin.pondAdminName"/>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4"></div>
-                <div class="col-md-4"></div>
-            </div>
-            <hr ng-if="create.isOtherPondAdmin"/>
-            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="col-md-4">Pond Name</label>
@@ -33,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4"></div>
+                <div class="col-md-4" ng-if="!isOtherPondAdmin"></div>
             </div>
         </div>
         <div class="panel-footer clearfix">

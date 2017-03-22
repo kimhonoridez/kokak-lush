@@ -9,7 +9,8 @@
 					url: '/login',
 					templateUrl: 'app/src/modules/login/login.html',
 					params: {
-						registrationSuccess: null
+						registrationSuccess: null,
+						status: null
 					}
 				}); 
 		}]);

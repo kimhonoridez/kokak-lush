@@ -7,7 +7,10 @@
 				// main state of the application
 				.state('app.searchPondAdmin', {
 					url: '/searchPondAdmin',
-					templateUrl: 'app/src/modules/admin/search/searchPondAdmin.html'
+					templateUrl: 'app/src/modules/admin/search/searchPondAdmin.html',
+					params: {
+						pondAdminCriteria: undefined
+					}
 				})
 				.state('pondAdminRegistration', {
 					url: '/pondAdminRegistration',

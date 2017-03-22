@@ -6,8 +6,15 @@
     'use strict';
 
     angular.module('header', [])
-        .controller('headerCtrl', ['$scope', 'userInfoSvc', function ($scope, userInfoSvc) {
+        .controller('headerCtrl', ['$scope', '$state', 'userInfoSvc', function ($scope, $state, userInfoSvc) {
             this.userName = userInfoSvc.getUserInfo().firstName;
+            this.logout = function () {
+                userInfoSvc.logout().then(function () {
+                    $state.go('login', { status: "LOGOUT_SUCCESS" });
+                }, function () {
+                    $state.go('login', { status: "LOGOUT_SUCCESS" });
+                });
+            };
 
             this.noAction = function (e) {
                 if ($(e.target.parentElement).hasClass('open')) {

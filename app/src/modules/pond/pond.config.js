@@ -9,22 +9,27 @@
 					url: '/searchPond',
 					templateUrl: 'app/src/modules/pond/searchPond.html',
 					params: {
-						searchCriteria: undefined
+						pondAdminName: undefined,
+						pondAdminId: undefined,
+						pondAdminCriteria: undefined,
+						criteria: undefined,
+						page: undefined
 					}
 				})
 				.state('app.viewPond', {
 					url: '/viewPond',
 					templateUrl: 'app/src/modules/pond/viewPond.html',
 					params: {
-						searchCriteria: undefined
+						criteria: undefined
 					}
 				})
 				.state('app.createPond', {
 					url: '/createPond',
 					templateUrl: 'app/src/modules/pond/createPond.html',
 					params: {
-						pondAdmin: undefined,
+						pondAdminName: undefined,
 						pondAdminId: undefined,
+						pondAdminCriteria: undefined,
 						criteria: undefined,
 						page: undefined,
 						pond: undefined

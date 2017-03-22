@@ -20,6 +20,7 @@
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
+									<div class="alert alert-success alert-small" ng-if="login.loginFail === 'LOGOUT_SUCCESS'"><b>SUCCESS.</b> Logged-out.</div>
 					  				<div class="alert alert-danger alert-small" ng-if="login.loginFail === 'LI_E001'"><b>ERROR.</b> Username and Password do not match.</div>
 					  				<div class="alert alert-danger alert-small" ng-if="login.loginFail === 'LI_E002'"><b>ERROR.</b> User is not active.</div>
 					  				<div class="alert alert-danger alert-small" ng-if="login.loginFail === 'LI_E003'"><b>ERROR.</b> User does not exist.</div>

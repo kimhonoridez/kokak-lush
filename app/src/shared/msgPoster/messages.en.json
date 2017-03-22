@@ -13,5 +13,7 @@
 
 	"LI_E001": "Username and password do not match.",
 	"LI_E002": "User is not active.",
-	"LI_E003": "User does not exist."
+	"LI_E003": "User does not exist.",
+
+	"PO_E001": "Questionnaire is locked."
 }

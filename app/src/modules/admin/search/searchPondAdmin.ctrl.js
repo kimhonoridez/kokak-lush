@@ -2,10 +2,11 @@
 	'use strict';
 
 	angular.module('admin')
-		.controller('searchPondAdminCtrl', ['$scope', 'AdminSvc', 'MsgPosterSvc', function ($scope, AdminSvc, MsgPosterSvc) {
+		.controller('searchPondAdminCtrl', ['$scope', '$state', '$timeout', 'AdminSvc', 'MsgPosterSvc', function ($scope, $state, $timeout, AdminSvc, MsgPosterSvc) {
 			var vm = this;
 
 			vm.criteria = {};
+			vm.stateParam = $state.params.pondAdminCriteria;
 
 			vm.clear = function () {
 				vm.criteria = {};
@@ -16,8 +17,19 @@
 				dataSource: new  kendo.data.DataSource({
                     transport: {
                         read: function (options) {
+                        	if (vm.stateParam) {
+								vm.criteria = vm.stateParam;
+                        	}
+
                         	AdminSvc.search(vm.criteria).then(function (res) {
                         		options.success(res.data);
+
+                        		if (vm.stateParam) {
+                        			$timeout(function () {
+										$scope.searchPondAdminGrid.dataSource.page(vm.stateParam.page);
+                        				vm.stateParam = undefined;
+                        			}, 200);
+                        		}
                         	}, function (res) {
                         		if (res.data.code) {
                         			MsgPosterSvc.errorMsgCode(res.data.code);
@@ -47,7 +59,7 @@
                 },
                 {
                 	command: {
-                		template: '<input type="button" class="btn btn-primary" value="View Ponds" ng-click="mate($event)"/>'
+                		template: '<input type="button" class="btn btn-primary" value="View Ponds" ng-click="viewPonds($event)"/>'
                 	}, 
                 	title: " ",
                 	width: "250px"
@@ -72,6 +84,20 @@
 					// Proceed search
 					proceedSearch();
 				}
+			};
+
+			$scope.viewPonds = function (e) {
+				e.preventDefault();
+				var dataItem = this.dataItem.toJSON();
+				vm.criteria.page = $scope.searchPondAdminGrid.dataSource.page();
+
+				var param = {
+					pondAdminId: dataItem.teacherId,
+					pondAdminName: dataItem.firstName + " " + dataItem.lastName,
+					pondAdminCriteria: angular.copy(vm.criteria) 
+				};
+
+				$state.go('app.searchPond', param);
 			};
 
 			function proceedSearch() {
