@@ -2,8 +2,10 @@
 	'use strict';
 
 	angular.module('admin')
-		.service('AdminSvc', ['$http', function ($http) {
-			this.findByUsername = function (username) {
+		.factory('AdminSvc', ['$http', function ($http) {
+			var svc = {};
+
+			svc.findByUsername = function (username) {
 				var req = {
 					method: 'GET',
 					url: 'apiOut/pondAdmin/username/' + username
@@ -12,7 +14,7 @@
 				return $http(req);
 			};
 
-			this.register = function (data) {
+			svc.register = function (data) {
 				var req = {
 					method: 'POST',
 					url: 'apiOut/pondAdmin',
@@ -22,7 +24,7 @@
 				return $http(req);
 			};
 
-			this.search = function (criteria) {
+			svc.search = function (criteria) {
 				var req = {
 					method: 'GET',
 					url: 'api/pondAdmin/search',
@@ -31,5 +33,7 @@
 
 				return $http(req);
 			};
+
+			return svc;
 		}]);
 })(); 

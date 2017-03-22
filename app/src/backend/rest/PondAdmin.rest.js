@@ -134,7 +134,6 @@
 		}
 
 		function test (req, res) {
-			console.log(req.session);
 			if (req.session.userId) {
 				console.log("Session Available: " + req.session.userId);
 

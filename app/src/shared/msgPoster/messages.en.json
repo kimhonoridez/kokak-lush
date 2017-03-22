@@ -1,11 +1,15 @@
 {
 	"E_000": "A system error has occurred.",
+	"E_001": "Invalid request.",
 	"E_002": "One of the inputs is invalid or empty.",
 	"E_003": "Input contains invalid characters.",
+
+	"S_000": "Data is successfully saved.",
 
 	"PA_E000": "Username is already taken.",
 	"PA_E001": "Search criteria must have at least 3 characters.",
 	"PA_E002": "Please input at least one search criteria.",
+	"PA_E003": "Please input search criteria.",
 
 	"LI_E001": "Username and password do not match.",
 	"LI_E002": "User is not active.",

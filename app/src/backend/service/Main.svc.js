@@ -8,6 +8,7 @@
 	var PondService = {};
 	PondService.Camel = require('./Camel.svc.js');
 	PondService.PondAdmin = require('./PondAdmin.svc.js')(DB);
+	PondService.Pond = require('./Pond.svc.js')(DB);
 
 	module.exports = PondService;
 })();
