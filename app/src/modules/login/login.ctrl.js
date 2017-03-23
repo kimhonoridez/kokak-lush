@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('login')
-		.controller('loginCtrl', ['$scope', '$state', '$stateParams', 'USER_TYPE', 'LIP_LOCK', 'loginSvc', 'userInfoSvc', function ($scope, $state, $stateParams, USER_TYPE, LIP_LOCK, loginSvc, userInfoSvc) {
+		.controller('loginCtrl', ['$scope', '$state', '$stateParams', '$kygAuthConfigSvc', 'USER_TYPE', 'LIP_LOCK', 'loginSvc', 'userInfoSvc', function ($scope, $state, $stateParams, $kygAuthConfigSvc, USER_TYPE, LIP_LOCK, loginSvc, userInfoSvc) {
 			var vm = this;
 
 			if ($scope.$root.CURRENT_USER_TYPE === USER_TYPE.FROG) {
@@ -20,16 +20,21 @@
 
 			vm.displayLogin = false;
 
+			// Test if there's an existing session
+			function test() {
+				loginSvc.test().then(function (res) {
+					// Has existing session
+					userInfoSvc.setUserInfo(res.data.userInfo);
+					$state.go('app.dashboard');
+				}, function (res) {
+					// No session
+					console.log('No session');
+					vm.displayLogin = true;
+				});
+			}
+
 			// Check if session is available
-			loginSvc.test().then(function (res) {
-				// Has existing session
-				userInfoSvc.setUserInfo(res.data.userInfo);
-				$state.go('app.dashboard');
-			}, function (res) {
-				// No session
-				console.log('No session');
-				vm.displayLogin = true;
-			});
+			$kygAuthConfigSvc.init(test, test);
 
 			vm.clearMsgs = function () {
 				vm.isFromRegistration = false;

@@ -36,7 +36,7 @@
 						// Username is available
 						data.isMaster = false;
 						data.status = true;
-						data.userId = 0
+						data.userId = 0;
 
 						// Insert Data
 						PondAdminSvc.insert(data, function (data) {
@@ -103,6 +103,7 @@
 
 									req.session.userId = userData.teacherId;
 									req.session.userType = "ADMIN";
+									userData.userType = req.session.userType;
 
 									res.status(200).json({code: "SUCCESS", userInfo: userData});
 								}
@@ -151,6 +152,7 @@
 						if (result.rows.length) {
 							var userData = result.rows[0];
 							cleanup(userData);
+							userData.userType = req.session.userType;
 							res.status(200).json({code: "SUCCESS", userInfo: Camel.camelizeKeys(userData)});
 						}
 						else {

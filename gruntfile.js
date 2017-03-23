@@ -26,6 +26,7 @@
 						{expand: true, src: ['vendor/**/*'], dest: 'dist/'},
 						{expand: true, cwd: 'bower_components/angular/', src: ['angular.min.js', 'angular-csp.css'], dest: 'dist/vendor/'},
 						{expand: true, cwd: 'bower_components/jquery/dist/', src: ['*.min.js'], dest: 'dist/vendor/'},
+						{expand: true, cwd: 'bower_components/jquery-migrate/', src: ['*.min.js'], dest: 'dist/vendor/'},
 						{expand: true, cwd: 'bower_components/angular-ui-router/release/', src: ['*.min.js'], dest: 'dist/vendor/'},
 						{expand: true, cwd: 'bower_components/', src: ['crypto-js/**/*'], dest: 'dist/vendor/'},
 						// Bootstrap
@@ -61,7 +62,7 @@
 					files: ['app/css/**/*'],
 					tasks: ['copy:css']
 				},
-				css: {
+				data: {
 					files: ['app/src/**/*.json'],
 					tasks: ['copy:data']
 				}

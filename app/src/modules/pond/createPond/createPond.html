@@ -1,0 +1,41 @@
+<div ng-controller="createPondCtrl as create">
+    <div class="panel panel-default">
+        <div class="panel-heading heading-big" ng-if="!pondData">Create New Pond</div>
+        <div class="panel-heading heading-big" ng-if="pondData">Pond Details</div>
+        <div class="panel-body">
+            <div class="row">
+            	<div class="col-md-4" ng-if="isOtherPondAdmin">
+                    <div class="form-group">
+                        <label class="col-md-4">Pond Admin</label>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="25" placeholder="Pond Admin" class="form-control" disabled="disabled" ng-model="create.pondAdmin.pondAdminName"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4">Pond Name</label>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="25" placeholder="Pond Name" class="form-control" ng-disabled="pondData" ng-model="create.data.pondName"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4">Max Frogs</label>
+                        <div class="col-md-8">
+                            <input kendo-numeric-text-box k-min="0" k-restrict-decimals="true" k-decimals="0" ng-disabled="pondData" maxlength="3" placeholder="'Max Frogs'" k-ng-model="create.data.maxFrogs" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="!isOtherPondAdmin"></div>
+            </div>
+        </div>
+        <div class="panel-footer clearfix">
+            <input type="button" value="Back" class="btn btn-default btn-sm" ng-click="create.back()"/>
+            <input type="button" value="Create" class="btn btn-primary btn-sm pull-right" ng-hide="pondData" ng-disabled="create.submitting" ng-click="create.go()"/>
+            <input type="button" value="Clear" class="btn btn-default btn-sm pull-right" ng-hide="pondData" ng-click="create.clear()"/>
+        </div>
+    </div>
+    <div ng-if="pondData" ng-include="'app/src/modules/pond/phase/phase.html'"></div>
+</div>

@@ -173,3 +173,7 @@ body {
 .panel-footer > div > .btn.pull-right {
 	margin-left: 10px;
 }
+
+.col-md-6 > .form-group > .k-widget {
+	width: 100%;
+}

@@ -1,0 +1,16 @@
+{
+  "GENDER": [
+    {
+      "id": "M",
+      "name": "Male"
+    },
+    {
+      "id": "F",
+      "name": "Female"
+    },
+    {
+      "id": "X",
+      "name": "Indeterminate"
+    }
+  ]
+}

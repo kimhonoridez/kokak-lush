@@ -91,7 +91,7 @@
 					delete data.userKey2;
 
 					// Proceed registration
-					AdminRegistrationSvc.register(data).then(function (res) {
+					AdminSvc.register(data).then(function (res) {
 						$state.go('login', {registrationSuccess: true});
 					}, function (res) {
 						if (res.data && res.data.code) {
@@ -115,7 +115,7 @@
 				// Check if username is valid
 				if (RegistrationValidationSvc.isUsernameValid(vm.data.username)) {
 					// Check if username is already taken
-					AdminRegistrationSvc.findByUsername(vm.data.username).then(function (res) {
+					AdminSvc.findByUsername(vm.data.username).then(function (res) {
 						if (res.data.result === true) {
 							// Username is taken
 							vm.msg.username = ErrorType.ERR_USERNAME_IN_USE;

@@ -4,6 +4,8 @@
 	angular.module('shared', [
 		'registrationValidation',
 		'userInfo',
-		'msgPoster'
+		'msgPoster',
+		'authorization',
+		'masterData'
 	]);
 })();

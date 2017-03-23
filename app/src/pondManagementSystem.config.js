@@ -28,8 +28,8 @@
 			// Set default state
 			$urlRouterProvider.otherwise('/login');
 		}])
-		.run(['$rootScope', 'USER_TYPE', 'MsgType', 'MsgPosterSvc', function ($rootScope, USER_TYPE, MsgType, MsgPosterSvc) {
-			$rootScope.CURRENT_USER_TYPE = USER_TYPE.ADMIN;
+		.run(['$rootScope', 'USER_TYPE', 'MsgType', 'MsgPosterSvc', 'MasterDataSvc', function ($rootScope, USER_TYPE, MsgType, MsgPosterSvc, MasterDataSvc) {
+			$rootScope.CURRENT_USER_TYPE = USER_TYPE.FROG;
 			$rootScope.MsgType = MsgType;
 
 			$rootScope.hasSpecialChars = function (str) {
@@ -37,6 +37,7 @@
 			};
 
 			MsgPosterSvc.init();
+			MasterDataSvc.init();
 
 			var win = nw.Window.get();
 			win.maximize();

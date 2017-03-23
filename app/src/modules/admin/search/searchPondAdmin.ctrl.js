@@ -97,7 +97,7 @@
 					pondAdminCriteria: angular.copy(vm.criteria) 
 				};
 
-				$state.go('app.searchPond', param);
+				$state.go('app.myPond', param);
 			};
 
 			function proceedSearch() {

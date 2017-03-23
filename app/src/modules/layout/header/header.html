@@ -5,10 +5,12 @@
 			<span class="navbar-kokak">Kokak Lush</span>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a ui-sref="app.dashboard" class="bold">Dashboard</a></li>
-				<li><a ui-sref="app.searchPondAdmin" class="bold">Pond Admins</a></li>
-				<li><a ui-sref="app.searchPond" class="bold">Ponds</a></li> 
-				<li><a class="bold">Enrolments</a></li>
+				<li kyg-usecase="COMMON"><a ui-sref="app.dashboard" class="bold">Dashboard</a></li>
+				<li kyg-usecase="PA-002"><a ui-sref="app.searchPondAdmin" class="bold">Pond Admins</a></li>
+				<li kyg-usecase="PO-002"><a ui-sref="app.myPond" class="bold">My Ponds</a></li>
+				<li kyg-usecase="PO-003"><a ui-sref="app.searchPond" class="bold">Ponds</a></li>
+				<li kyg-usecase="EN-002"><a class="bold">Enrolments</a></li>
+				<li kyg-usecase="EN-003"><a class="bold">My Enrolments</a></li>
 
 				<li class="dropdown margin-left-30" uib-dropdown>
 					<a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

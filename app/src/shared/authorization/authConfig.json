@@ -1,0 +1,74 @@
+{
+  "PA-001": {
+    "resource": "pa_c",
+    "description": "Register Pond Admin"
+  },
+  "PA-002": {
+    "resource": "pa_v",
+    "description": "View Pond Admin"
+  },
+  "PO-001": {
+    "resource": "po_c",
+    "description": "Create Pond"
+  },
+  "PO-002": {
+    "resource": "po_v_a",
+    "description": "View Pond as Admin"
+  },
+  "PO-003": {
+    "resource": "po_v_f",
+    "description": "View Pond as Frog"
+  },
+  "PH-001": {
+    "resource": "ph_v",
+    "description": "View Pond Frog Phases"
+  },
+  "QN-001": {
+    "resource": "qn_c",
+    "description": "Create Questionnaire"
+  },
+  "QN-002": {
+    "resource": "qn_u",
+    "description": "Update Questionnaire"
+  },
+  "QN-003": {
+    "resource": "qn_v",
+    "description": "View Questionnaire"
+  },
+  "FR-001": {
+    "resource": "fr_c",
+    "description": "Register Frog"
+  },
+  "EN-001": {
+    "resource": "en_c",
+    "description": "Mate / Enrol"
+  },
+  "EN-002": {
+    "resource": "en_v_a",
+    "description": "View Enrolment as Admin"
+  },
+  "EN-003": {
+    "resource": "en_v_f",
+    "description": "View Enrolment as Frog"
+  },
+  "EN-004": {
+    "resource": "en_u",
+    "description": "Update Enrolment"
+  },
+  "DV-001": {
+    "resource": "dv_v",
+    "description": "View Development"
+  },
+  "AN-001": {
+    "resource": "an_c",
+    "description": "Create Answer"
+  },
+  "AN-002": {
+    "resource": "an_u",
+    "description": "Update Answer"
+  },
+  "AN-003": {
+    "resource": "an_v",
+    "description": "View Answer"
+  }
+}
