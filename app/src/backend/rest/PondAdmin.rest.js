@@ -70,7 +70,6 @@
 		function logout (req, res) {
 			req.session.userId = undefined;
 			req.session.userType = undefined;
-			req.session.remove();
 			console.log("[Logout] Removing session.");
 			res.status(200).json({code: "SUCCESS"});
 		}

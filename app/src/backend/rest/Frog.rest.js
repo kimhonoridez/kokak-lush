@@ -77,7 +77,7 @@
                             if (userPass === dbPass) {
                                 cleanup(userData);
 
-                                req.session.userId = userData.teacherId;
+                                req.session.userId = userData.frogId;
                                 req.session.userType = "FROG";
                                 userData.userType = req.session.userType;
 

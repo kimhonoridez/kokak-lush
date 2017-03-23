@@ -21,6 +21,7 @@
 			vm.errorCode = ErrorType.NONE;
 			vm.data = {};
 			vm.genderList = MasterDataSvc.get('GENDER');
+			vm.maxDate = new Date();
 
 			vm.msg = {
 				username: ErrorType.NONE,
