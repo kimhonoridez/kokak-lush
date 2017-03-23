@@ -38,6 +38,16 @@
                 return $http(req);
             };
 
+            svc.searchPond = function (criteria) {
+                var req = {
+                    method: 'GET',
+                    url: 'api/pond/search/for/frog',
+                    params: criteria
+                };
+
+                return $http(req);
+            };
+
             return svc;
         }]);
 })();

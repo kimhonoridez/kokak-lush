@@ -1,24 +1,46 @@
 (function () {
 	'use strict';
 
-	angular.module('pond')
-		.controller('searchPondCtrl', ['$scope', '$state', '$timeout', 'PondSvc', 'MsgPosterSvc', 'EnrolmentSvc', function ($scope, $state, $timeout, PondSvc, MsgPosterSvc, EnrolmentSvc) {
+	angular.module('enrolment')
+		.controller('enrolmentCtrl', ['$scope', '$state', '$timeout', 'PondSvc', 'MsgPosterSvc', 'EnrolmentSvc', function ($scope, $state, $timeout, PondSvc, MsgPosterSvc, EnrolmentSvc) {
 			var vm = this;
 
 			vm.criteria = {};
+
+			vm.stateParams = $state.params;
+
+			// Setup search criteria for the newly enrolled pond
+			if (vm.stateParams.pondAdminId) {
+				vm.pondAdmin = {
+					pondAdminId: vm.stateParams.pondAdminId,
+					pondAdminName: vm.stateParams.pondAdminName,
+					pondAdminCriteria: vm.stateParams.pondAdminCriteria
+				};
+			}
 
 			vm.clear = function () {
 				vm.criteria = {};
 				proceedSearch();
 			};
 
-			$scope.searchPondGridOptions = {
+			$scope.searchEnrolmentGridOptions = {
 				dataSource: new  kendo.data.DataSource({
                     transport: {
                         read: function (options) {
+                        	// Initialize data
+                        	if (vm.stateParams.criteria) {
+                        		vm.criteria = vm.stateParams.criteria || {};
+                        	}
 
 							PondSvc.searchPond(vm.criteria).then(function (res) {
 								options.success(res.data.result);
+
+								if (vm.stateParams.criteria) {
+									$timeout(function () {
+										$scope.searchEnrolmentGrid.dataSource.page(vm.stateParams.page);
+										vm.stateParams.criteria = undefined;
+									}, 100);
+								}
 							}, function (res) {
 								if (res.data.code) {
 									MsgPosterSvc.errorMsgCode(res.data.code);
@@ -97,9 +119,9 @@
 
 			function proceedSearch() {
 				// Proceed search
-				if ($scope.searchPondGrid) {
-					$scope.searchPondGrid.dataSource.page(0);
-					$scope.searchPondGrid.dataSource.read();
+				if ($scope.searchEnrolmentGrid) {
+					$scope.searchEnrolmentGrid.dataSource.page(0);
+					$scope.searchEnrolmentGrid.dataSource.read();
 				}
 				else {
 					console.warn("[Search Pond] Kendo Grid not yet initialized.");

@@ -5,6 +5,7 @@
 
         Router.post('/api/pond', savePond);
         Router.get('/api/pond/search', search);
+        Router.get('/api/pond/search/for/frog', searchForFrog);
 
         // Phase-related  APIs
         Router.get('/api/pond/:pondId/phases', getPhases);
@@ -164,6 +165,29 @@
             }
             else {
                 PondSvc.search(criteria, function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        result[i] = Camel.camelizeKeys(result[i]);
+                    }
+                    res.status(200).json({code: "SUCCESS", result: result});
+                }, function (err) {
+                    res.status(500).json({code: "E_000"});
+                });
+            }
+        }
+
+        function searchForFrog (req, res) {
+            var criteria = {
+                pondName: req.query.pondName,
+                pondAdminName: req.query.pondAdminName,
+                frogId: req.session.userId
+            };
+
+            if ((criteria.pondName && Camel.hasSpecialChars(criteria.pondName)) ||
+                    (criteria.pondAdminName && Camel.hasSpecialChars(criteria.pondAdminName))) {
+                res.status(500).json({code: "E_003"});
+            }
+            else {
+                PondSvc.searchForFrog(criteria, function (result) {
                     for (var i = 0; i < result.length; i++) {
                         result[i] = Camel.camelizeKeys(result[i]);
                     }

@@ -15,5 +15,8 @@
 	"LI_E002": "User is not active.",
 	"LI_E003": "User does not exist.",
 
-	"PO_E001": "Questionnaire is locked."
+	"PO_E001": "Questionnaire is locked.",
+
+	"EN_S001": "An egg is laid! Please make sure to comlete the phases to become a Great Full Grown Frog.",
+	"EN_E001": "Frog has already mated in this pond."
 }

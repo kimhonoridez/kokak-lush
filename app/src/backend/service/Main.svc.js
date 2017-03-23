@@ -6,10 +6,12 @@
 
 	// Collate all services into one object
 	var PondService = {};
+	
 	PondService.Camel = require('./Camel.svc.js');
 	PondService.PondAdmin = require('./PondAdmin.svc.js')(DB);
 	PondService.Pond = require('./Pond.svc.js')(DB);
 	PondService.Frog = require('./Frog.svc.js')(DB);
+	PondService.Enrolment = require('./Enrolment.svc.js')(DB);
 
 	module.exports = PondService;
 })();
