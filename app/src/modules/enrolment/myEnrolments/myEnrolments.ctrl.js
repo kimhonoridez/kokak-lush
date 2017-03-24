@@ -32,7 +32,7 @@
                         		vm.criteria = vm.stateParams.criteria || {};
                         	}
 
-							PondSvc.searchPond(vm.criteria).then(function (res) {
+							EnrolmentSvc.searchMyEnrolments(vm.criteria).then(function (res) {
 								options.success(res.data.result);
 
 								if (vm.stateParams.criteria) {
@@ -65,19 +65,19 @@
                 sortable: true,
                 pageable: true,
                 columns: [{
-						field: "pondAdminName",
+						field: "pondAdmin",
 						title: "Pond Admin"
 					},{
 						field: "pondName",
 						title: "Pond Name"
 					},
 					{
-						field: "maxFrogs",
-						title: "Max Frogs"
+						field: "phaseName",
+						title: "Current Phase"
 					},
 					{
 						command: {
-							template: '<input type="button" class="btn btn-primary" value="Enrol to Mate" ng-click="enrol($event)"/>'
+							template: '<input type="button" class="btn btn-primary" value="Progress" ng-click="progress($event)"/>'
 						},
 						title: " ",
 						width: "250px"
@@ -102,18 +102,15 @@
 				}
 			};
 
-			$scope.enrol = function (e) {
+			$scope.progress = function (e) {
 				e.preventDefault();
 
-				EnrolmentSvc.enrol(this.dataItem.pondId).then(function (res) {
-					// Refresh List
-					MsgPosterSvc.successMsgCode('EN_S001');
-					proceedSearch();
-				}, function (res) {
-					// Display Message
-					if (res.data.code) {
-						MsgPosterSvc.errorMsgCode(res.data.code);
-					}
+				// View Progress in each phase
+				$state.go('app.myEnrolmentPhase', {
+					enrolmentId: this.dataItem.enrolmentId,
+					pondAdmin: this.dataItem.pondAdmin,
+					pondName: this.dataItem.pondName,
+					myEnrolmentSearchCriteria: vm.criteria
 				});
 			};
 

@@ -11,7 +11,8 @@
 
             var columns = [{
                     field: "seqNo",
-                    title: "Seq No"
+                    title: "Seq No",
+                    width: "100px"
                 },
                 {
                     field: "phaseName",

@@ -1,0 +1,34 @@
+<div ng-controller="enrolmentPhaseCtrl as phase">
+    <div class="panel panel-default">
+        <div class="panel-heading heading-big">Enrolment
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4">Pond Admin</label>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="25" disabled="disabled" placeholder="Pond Admin" class="form-control" ng-model="phase.enrolment.pondAdminName"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4">Pond Name</label>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="25" disabled="disabled" placeholder="Pond Name" class="form-control" ng-model="phase.enrolment.pondName"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading heading-big">Phases</div>
+        <div class="panel-body">
+            <div style="color: purple; font-style: italic;">Challenge current phase to move to the next phase. The phase will automatically upgrade after Pond Admin has confirmed the challenge.</div>
+            <div kendo-grid="phaseGrid" options="phaseGridOptions"></div>
+        </div>
+    </div>
+</div>

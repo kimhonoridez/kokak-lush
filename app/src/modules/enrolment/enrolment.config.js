@@ -12,6 +12,16 @@
 						pondAdminName: undefined,
 						pondName: undefined
 					}
-				}); 
+				})
+				.state('app.myEnrolmentPhase', {
+					url: '/myEnrolmentPhase',
+					templateUrl: 'app/src/modules/enrolment/myEnrolments/myEnrolmentPhase.html',
+					params: {
+						enrolmentId: undefined,
+						pondAdmin: undefined,
+						pondName: undefined,
+						myEnrolmentSearchCriteria: undefined
+					}
+				});
 		}]);
 })();

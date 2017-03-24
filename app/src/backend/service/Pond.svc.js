@@ -227,7 +227,6 @@
                     }
                 }
                 sql += "GROUP BY pond.pond_id, concat(teacher.first_name, \' \',teacher.last_name)";
-                console.log(sql);
 
                 client.query(sql, dataSet, function (err, result) {
                     done();
