@@ -12,6 +12,7 @@
 	PondService.Pond = require('./Pond.svc.js')(DB);
 	PondService.Frog = require('./Frog.svc.js')(DB);
 	PondService.Enrolment = require('./Enrolment.svc.js')(DB);
+	PondService.Answer = require('./Answer.svc.js')(DB);
 
 	module.exports = PondService;
 })();

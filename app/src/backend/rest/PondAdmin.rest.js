@@ -70,6 +70,7 @@
 		function logout (req, res) {
 			req.session.userId = undefined;
 			req.session.userType = undefined;
+			req.session.destroy();
 			console.log("[Logout] Removing session.");
 			res.status(200).json({code: "SUCCESS"});
 		}
@@ -144,7 +145,6 @@
 
 		function test (req, res) {
 			if (req.session.userId) {
-				console.log("Session Available: " + req.session.userId);
 
 				if (req.session.userType === "ADMIN") {
 					PondAdminSvc.getById(parseInt(req.session.userId), function (result) {

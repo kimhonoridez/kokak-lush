@@ -14,6 +14,15 @@
                 return $http(req);
 			};
 
+			svc.getQuestionnaireAndAnswer = function (phaseId, frogId) {
+				var req = {
+                    method: 'GET',
+                    url: 'api/pond/phase/' + phaseId + '/questionnaire/frog/' + frogId
+                };
+
+                return $http(req);
+			};
+
 			svc.updateQuestionnaire = function (data) {
 				var req = {
                     method: 'PUT',
@@ -28,6 +37,16 @@
 				var req = {
                     method: 'POST',
                     url: 'api/pond/phase/questionnaire',
+                    data: data
+                };
+
+                return $http(req);
+			};
+
+			svc.submitAnswerSheet = function (data) {
+				var req = {
+                    method: 'PUT',
+                    url: 'api/answer',
                     data: data
                 };
 

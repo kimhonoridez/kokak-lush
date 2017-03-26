@@ -12,6 +12,7 @@
 
         // Questionnaire-related APIs
         Router.get('/api/pond/phase/:phaseId/questionnaire', getQuestionnaire);
+        Router.get('/api/pond/phase/:phaseId/questionnaire/frog/:frogId', getQuestionnaireAndAnswer);
         Router.put('/api/pond/phase/questionnaire', updateQuestionnaire);
         Router.put('/api/pond/phase/questionnaire/:questionId/lock', lockQuestionnaire);
         Router.post('/api/pond/phase/questionnaire', saveQuestionnaire);
@@ -141,6 +142,30 @@
                     if (result.length) {
                         retVal = Camel.camelizeKeys(result[0]);
                         retVal.questions = JSON.parse(retVal.questions);
+                        code = "SUCCESS";
+                    }
+
+                    res.status(200).json({code: code, result: retVal});
+                }, function(err) {
+                    res.status(500).json({code: "E_000"});
+                });
+            }
+            else {
+                res.status(500).json({code: "E_001"});
+            }
+        }
+
+        function getQuestionnaireAndAnswer (req, res) {
+            if (req.params.phaseId && req.params.frogId) {
+                PondSvc.getQuestionnaireAndAnswer(req.params.phaseId, req.params.frogId, function (result) {
+                    var retVal = undefined;
+                    var code = "EMPTY_RESULT";
+
+                    if (result.length) {
+                        retVal = Camel.camelizeKeys(result[0]);
+                        retVal.questions = JSON.parse(retVal.questions);
+                        retVal.answer = JSON.parse(retVal.answer);
+                        retVal.remark = JSON.parse(retVal.remark);
                         code = "SUCCESS";
                     }
 

@@ -56,7 +56,6 @@
         }
 
         function searchFrogEnrolments (req, res) {
-            console.log(req.params);
             if (req.params.frogId) {
                 var criteria = {
                     frogId: req.params.frogId,

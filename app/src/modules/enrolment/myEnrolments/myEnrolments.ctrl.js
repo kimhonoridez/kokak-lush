@@ -7,15 +7,9 @@
 
 			vm.criteria = {};
 
-			vm.stateParams = $state.params;
-
 			// Setup search criteria for the newly enrolled pond
-			if (vm.stateParams.pondAdminId) {
-				vm.pondAdmin = {
-					pondAdminId: vm.stateParams.pondAdminId,
-					pondAdminName: vm.stateParams.pondAdminName,
-					pondAdminCriteria: vm.stateParams.pondAdminCriteria
-				};
+			if ($state.params && $state.params.myEnrolmentSearchCriteria) {
+				vm.criteria = $state.params.myEnrolmentSearchCriteria;
 			}
 
 			vm.clear = function () {
@@ -27,18 +21,14 @@
 				dataSource: new  kendo.data.DataSource({
                     transport: {
                         read: function (options) {
-                        	// Initialize data
-                        	if (vm.stateParams.criteria) {
-                        		vm.criteria = vm.stateParams.criteria || {};
-                        	}
 
 							EnrolmentSvc.searchMyEnrolments(vm.criteria).then(function (res) {
 								options.success(res.data.result);
 
-								if (vm.stateParams.criteria) {
+								if (vm.criteria.page) {
 									$timeout(function () {
-										$scope.searchEnrolmentGrid.dataSource.page(vm.stateParams.page);
-										vm.stateParams.criteria = undefined;
+										$scope.searchEnrolmentGrid.dataSource.page(vm.criteria.page);
+										delete vm.criteria.page;
 									}, 100);
 								}
 							}, function (res) {
@@ -104,12 +94,14 @@
 
 			$scope.progress = function (e) {
 				e.preventDefault();
+				vm.criteria.page = $scope.searchEnrolmentGrid.dataSource.page();
 
 				// View Progress in each phase
 				$state.go('app.myEnrolmentPhase', {
 					enrolmentId: this.dataItem.enrolmentId,
 					pondAdmin: this.dataItem.pondAdmin,
 					pondName: this.dataItem.pondName,
+					currentPhaseId: this.dataItem.currentPhaseId,
 					myEnrolmentSearchCriteria: vm.criteria
 				});
 			};

@@ -7,7 +7,7 @@
 				// main state of the application
 				.state('app.myPond', {
 					url: '/myPond',
-					templateUrl: 'app/src/modules/pond/myPond/myPond.html',
+					templateUrl: 'app/src/modules/pond/myPonds/myPonds.html',
 					params: {
 						pondAdminName: undefined,
 						pondAdminId: undefined,

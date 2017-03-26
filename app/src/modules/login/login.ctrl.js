@@ -25,7 +25,14 @@
 				loginSvc.test().then(function (res) {
 					// Has existing session
 					userInfoSvc.setUserInfo(res.data.userInfo);
-					$state.go('app.dashboard');
+
+					if (vm.isFrog) {
+						$state.go('app.myEnrolments');
+					}
+					else {
+						$state.go('app.myPond');
+					}
+					
 				}, function (res) {
 					// No session
 					console.log('No session');
@@ -62,7 +69,13 @@
 					loginSvc.login(data).then(function (res) {
 						// Login successful
 						userInfoSvc.setUserInfo(res.data.userInfo);
-						$state.go('app.dashboard');
+						
+						if (vm.isFrog) {
+							$state.go('app.myEnrolments');
+						}
+						else {
+							$state.go('app.myPond');
+						}
 					}, function (res) {
 						if (res.data && res.data.code) {
 							vm.loginFail = res.data.code;

@@ -115,7 +115,6 @@
 
         function test (req, res) {
             if (req.session.userId) {
-                console.log("Session Available: " + req.session.userId);
 
                 if (req.session.userType === "FROG") {
                     FrogSvc.getById(parseInt(req.session.userId), function (result) {

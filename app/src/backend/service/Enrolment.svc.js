@@ -33,7 +33,7 @@
         Enrolment.searchFrogEnrolments = function (criteria, successCallback, failCallback) {
             DB.connect(function (err, client, done) {
                 var dataSet = [criteria.frogId];
-                var sql = 'SELECT trx_enrolment.enrolment_id, CONCAT(teacher.first_name, \' \', teacher.last_name) as pond_admin, pond.pond_name, phase.phase_name FROM trx_enrolment ';
+                var sql = 'SELECT trx_enrolment.enrolment_id, trx_enrolment.current_phase_id, CONCAT(teacher.first_name, \' \', teacher.last_name) as pond_admin, pond.pond_name, phase.phase_name FROM trx_enrolment ';
                 sql += 'LEFT JOIN pond ON pond.pond_id = trx_enrolment.pond_id ';
                 sql += 'LEFT JOIN phase ON phase.phase_id = trx_enrolment.current_phase_id ';
                 sql += 'LEFT JOIN teacher ON pond.created_by = teacher.teacher_id ';

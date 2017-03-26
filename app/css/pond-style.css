@@ -177,3 +177,7 @@ body {
 .col-md-6 > .form-group > .k-widget {
 	width: 100%;
 }
+
+.completed {
+	background-color: #bff9bf;
+}

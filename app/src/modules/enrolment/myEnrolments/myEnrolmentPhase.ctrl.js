@@ -2,13 +2,15 @@
     'use strict';
 
     angular.module('enrolment')
-        .controller('enrolmentPhaseCtrl', ['$scope', '$state', '$timeout', 'PondSvc', 'MsgPosterSvc', 'EnrolmentSvc', function ($scope, $state, $timeout, PondSvc, MsgPosterSvc, EnrolmentSvc) {
+        .controller('enrolmentPhaseCtrl', ['$scope', '$state', '$uibModal', 'PondSvc', 'MsgPosterSvc', 'EnrolmentSvc', function ($scope, $state, $uibModal, PondSvc, MsgPosterSvc, EnrolmentSvc) {
             var vm = this;
 
             vm.enrolment = {
                 pondAdminName: $state.params.pondAdmin,
                 pondName: $state.params.pondName
             };
+
+            $scope.currentPhaseId = $state.params.currentPhaseId;
 
             $scope.phaseGridOptions = {
                 dataSource: new  kendo.data.DataSource({
@@ -48,16 +50,39 @@
                     },
                     {
                         field: "endDate",
-                        title: "End Date",
+                        title: "Estimated End Date",
                         template: "#= endDate.substr(0, 10) #"
                     },
                     {
                         command: {
-                            template: '<input type="button" class="btn btn-primary" value="Challenge" ng-click="challenge($event)"/>'
+                            template: '<input type="button" class="btn btn-primary k-grid-challengeCommand" value="Challenge" ng-click="challenge($event)"/>',
+                            visible: function(dataItem) { 
+                                return dataItem.phaseId === currentPhaseId;
+                            }
                         },
                         title: " ",
                         width: "250px"
-                    }]
+                    }],
+                dataBound: function (e) {
+                    var grid = this;
+ 
+                    grid.tbody.find("tr[role='row']").each(function () {
+                        var model = grid.dataItem(this);
+                        
+                        if (model.phaseId < $scope.currentPhaseId) {
+                            // Mark this phase as completed
+                            angular.element(this).find("td:last").html("Completed").addClass("completed");
+                        }
+                        else if (model.phaseId > $scope.currentPhaseId) {
+                            // Remove the Challenge
+                            angular.element(this).find('.k-grid-challengeCommand').remove();
+                        }
+                    });
+                }
+            };
+
+            vm.back = function () {
+                $state.go('app.myEnrolments', $state.params);
             };
 
             vm.go = function () {
@@ -78,18 +103,21 @@
                 }
             };
 
-            $scope.progress = function (e) {
+            $scope.challenge = function (e) {
                 e.preventDefault();
+                var data = this.dataItem.toJSON();
+                data.enrolmentId = parseInt($state.params.enrolmentId);
 
-                EnrolmentSvc.getEnrolmentPhasesFrog(this.dataItem.enrolmentId).then(function (res) {
-                    // Refresh List
-                    MsgPosterSvc.successMsgCode('EN_S001');
-                    proceedSearch();
-                }, function (res) {
-                    // Display Message
-                    if (res.data.code) {
-                        MsgPosterSvc.errorMsgCode(res.data.code);
+                var modalInstance = $uibModal.open({
+                    templateUrl : '/app/src/modules/pond/questionnaire/answerSheet/answerSheet.html',
+                    controller: 'answerSheetCtrl as vm',
+                    resolve: {
+                        data: data
                     }
+                }).result.then(function () {
+                    // Do Nothing
+                }, function () {
+                    // Do Nothing
                 });
             };
 

@@ -14,6 +14,16 @@
 				return angular.copy(userInfo);
 			};
 
+			vm.isAdmin = function () {
+				var retVal = false;
+
+				if (userInfo && userInfo.userType === "ADMIN") {
+					retVal = true;
+				}
+
+				return retVal;
+			};
+
 			vm.setUserInfo = function (data) {
 				userInfo = data;
 

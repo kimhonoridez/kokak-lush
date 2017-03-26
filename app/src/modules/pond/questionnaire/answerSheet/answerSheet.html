@@ -1,0 +1,34 @@
+<div class="panel panel-default" style="margin-bottom: 0px;">
+	<div class="panel-heading">Questionnaire</div>
+	<div class="panel-body">
+        <div class="alert alert-danger" role="alert" ng-if="vm.messages.length" ng-repeat="item in vm.messages">{{ item }}</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 45px;">No.</th>
+                    <th>Question</th>
+                    <th>Answer</th>
+                    <th ng-if="vm.isAdmin">Remark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.questionList">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ item.question }}</td>
+                    <td><textarea class="form-control" ng-model="vm.answerSheet[$index].answer" ng-disabled="!vm.editMode"></textarea></td>
+                    <td ng-if="$root.CURRENT_USER_TYPE === 'ADMIN'"><textarea class="form-control" ng-model="vm.remarkList[$index].remark" ng-disabled="!vm.editMode"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+	</div>
+	<div class="panel-footer clearfix">
+        <div ng-if="!vm.editMode">
+            <input type="button" value="Close" class="btn btn-default pull-right" ng-click="vm.close()"/>
+    		<input type="submit" value="Answer" ng-if="!vm.questionnaireData || (vm.questionnaireData && vm.questionnaireData.status)" class="btn btn-primary pull-right" ng-click="vm.edit()"/>
+        </div>
+        <div ng-if="vm.editMode">
+            <input type="submit" value="Save" class="btn btn-primary pull-right" ng-click="vm.update()"/>
+            <input type="button" value="Cancel" class="btn btn-default pull-right" ng-click="vm.cancel()"/>
+        </div> 
+	</div>
+</div>

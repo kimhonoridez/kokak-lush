@@ -14,6 +14,18 @@
 	app.use(bodyParser.json());
 	app.use(session({secret: 'k0k@KLu$h', cookie: {}}));
 
+	app.use(function (req, res, next) {
+
+		if (req.session.userId) {
+			console.log("[" + req.session.userType + "] " + req.session.userId);
+		}
+	  	else {
+	  		console.log("No session available.");
+	  	}
+
+	  	next();
+	});
+
 	var PondService = require('./service/Main.svc.js');
 	require('./rest/Main.rest.js')(app, PondService);
 

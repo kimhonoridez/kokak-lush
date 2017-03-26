@@ -9,8 +9,7 @@
 					url: '/myEnrolments',
 					templateUrl: 'app/src/modules/enrolment/myEnrolments/myEnrolments.html',
 					params: {
-						pondAdminName: undefined,
-						pondName: undefined
+						myEnrolmentSearchCriteria: undefined
 					}
 				})
 				.state('app.myEnrolmentPhase', {
@@ -20,6 +19,7 @@
 						enrolmentId: undefined,
 						pondAdmin: undefined,
 						pondName: undefined,
+						currentPhaseId: undefined,
 						myEnrolmentSearchCriteria: undefined
 					}
 				});

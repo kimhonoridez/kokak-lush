@@ -42,9 +42,9 @@
 			vm.update = function () {
 
 				// Sanitize input
-				for (var i = 0; i < vm.questionList.lengt; i++) {
-					vm.questionList[i] = $sce.trustAsHtml(vm.questionList[i]);
-				}
+				/*for (var i = 0; i < vm.questionList.length; i++) {
+					vm.questionList[i].question = $sce.trustAsHtml(vm.questionList[i].question);
+				}*/
 
 				// Construct data
 				var tmp = {

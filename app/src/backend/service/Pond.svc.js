@@ -147,6 +147,29 @@
             });
         };
 
+        Pond.getQuestionnaireAndAnswer = function (phaseId, frogId, successCallback, failCallback) {
+            DB.connect(function (err, client, done) {
+                var sql = "SELECT questionnaire.*, trx_answer.* FROM questionnaire ";
+                sql += "LEFT JOIN trx_answer ON trx_answer.question_id = questionnaire.question_id ";
+                sql += "LEFT JOIN trx_enrolment ON trx_enrolment.enrolment_id = trx_answer.enrolment_id ";
+                sql += "WHERE questionnaire.phase_id=$1 AND trx_enrolment.frog_id = $2";
+
+                var dataSet = [phaseId, frogId];
+
+                client.query(sql, dataSet, function (err, result) {
+                    done();
+
+                    if (err) {
+                        console.error('ERROR: Pond Get Questionnaires', err);
+                        failCallback(err);
+                        return;
+                    }
+
+                    successCallback(result.rows);
+                });
+            });
+        };
+
         Pond.getPhases = function (pondId, successCallback, failCallback) {
             DB.connect(function (err, client, done) {
                 client.query('SELECT * FROM phase WHERE pond_id=$1', [pondId], function (err, result) {
