@@ -26,6 +26,8 @@ By now, PostgreSQL and PG Admin should already be installed. Below steps will he
 ```
 4. Click *Restore* button.
 5. Check if tables are created.
+6. Using command prompt, go to the following path: `app/src/backend/service/DB.svc.js`.
+7. Update the DB Connection URL in *line 5* using the format: `postgres://{username}:{password}@localhost/mypond`
 
 #### Setting-up the Application
 1. Using command prompt, make sure you are currently pointing to the Kokak Lush main folder which contains the *package.json*.
@@ -33,10 +35,8 @@ By now, PostgreSQL and PG Admin should already be installed. Below steps will he
 3. Input command `bower install`.
 
 #### Running the Backend
-1. Using command prompt, go to the following path: `app/src/backend/service/DB.svc.js`.
-2. Update the DB Connection URL in *line 5* using the format: `postgres://{username}:{password}@localhost/mypond`
-3. Go back to *backend* folder.
-4. Input command `node Backend.main.js`.
+1. Using command prompt, go to the following path: `app/src/backend`.
+2. Input command `node Backend.main.js`.
 
 #### Building the Frontend
 1. Using command prompt, go to Kokak Lush main folder.
@@ -54,3 +54,11 @@ By now, PostgreSQL and PG Admin should already be installed. Below steps will he
 
 #### Running Admin and Frog Modes at the same time
 Kokak Lush frontend has 2 modes: **admin mode** and **frog mode**. To run both modes at the same time, just follow the following simple steps:
+1. Copy *dist* folder and rename it as *dist_frog*.
+2. Open the following file in a text editor: *dist_frog/app/src/pondManagementSystem.config.js*.
+3. In *line 32*, set the following value: `$rootScope.CURRENT_USER_TYPE = USER_TYPE.FROG;`.
+> **NOTE: ** For Admin mode, this value is *$rootScope.CURRENT_USER_TYPE = USER_TYPE.ADMIN*;
+4. Go back to *dist_frog* folder and open *package.json* in a text editor.
+5. Update name to **_my-pond-frog_**.
+6. Double click **_nw.exe_** to run in **FROG MODE**.
+5. Go back to *dist* folder and double click **_nw.exe_** to run in **ADMIN MODE**.
