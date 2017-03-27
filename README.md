@@ -15,13 +15,14 @@ Frogs can mate in their selected ponds and develop their eggs into full grown ad
 7. [PG Admin](https://www.pgadmin.org/download/)
 
 #### Setting-up the Database
-By now, the PostgreSQL and PG Admin are already installed. Below steps will help you to setup the database:
+By now, PostgreSQL and PG Admin should already be installed. Below steps will help you to setup the database:
 1. Using PG Admin, create a new database called __*mypond*__.
 2. Right click on the newly created database and select __*Restore*__.
 3. Input the following into the shown Restore dialog
 ```
   Format: Custom or tar
   Filename: Locate the sql dump in app\src\backend\sql\mypond
+  Rolename: Postgres
 ```
 4. Click *Restore* button.
 5. Check if tables are created.
@@ -32,8 +33,10 @@ By now, the PostgreSQL and PG Admin are already installed. Below steps will help
 3. Input command `bower install`.
 
 #### Running the Backend
-1. Using command prompt, go to the following path: `app/src/backend/`.
-2. Input command `node Backend.main.js`.
+1. Using command prompt, go to the following path: `app/src/backend/service/DB.svc.js`.
+2. Update the DB Connection URL in *line 5* using the format: `postgres://{username}:{password}@localhost/mypond`
+3. Go back to *backend* folder.
+4. Input command `node Backend.main.js`.
 
 #### Building the Frontend
 1. Using command prompt, go to Kokak Lush main folder.
