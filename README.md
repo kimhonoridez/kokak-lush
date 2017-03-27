@@ -22,7 +22,7 @@ By now, PostgreSQL and PG Admin should already be installed. Below steps will he
 ```
   Format: Custom or tar
   Filename: Locate the sql dump in app\src\backend\sql\mypond
-  Rolename: Postgres
+  Rolename: postgres
 ```
 4. Click *Restore* button.
 5. Check if tables are created.
