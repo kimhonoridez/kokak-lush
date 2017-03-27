@@ -62,3 +62,6 @@ Kokak Lush frontend has 2 modes: **admin mode** and **frog mode**. To run both m
 5. Update name to **_my-pond-frog_**.
 6. Double click **_nw.exe_** to run in **FROG MODE**.
 5. Go back to *dist* folder and double click **_nw.exe_** to run in **ADMIN MODE**.
+
+#### Known Issues
+Known Issues are listed down in the [Issues](https://github.com/kimhonoridez/kokak-lush/issues) section.
