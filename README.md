@@ -18,14 +18,36 @@ Frogs can mate in their selected ponds and develop their eggs into full grown ad
 By now, the PostgreSQL and PG Admin are already installed. Below steps will help you to setup the database:
 1. Using PG Admin, create a new database called __*mypond*__.
 2. Right click on the newly created database and select __*Restore*__.
-3. Input the following into the shown Restore diaglog:
-  - Format: Custom or tar
-  - Filename: *Locate the sql dump in app\src\backend\sql\mypond*
-4. Test
+3. Input the following into the shown Restore dialog
+```
+  Format: Custom or tar
+  Filename: Locate the sql dump in app\src\backend\sql\mypond
+```
+4. Click *Restore* button.
+5. Check if tables are created.
 
-- Forgot password
-- Only 1 session is supported
-- No backend pagination yet
-- Should have used error codes to get/display error messages
-- Should have implemented relationships between tables
-- should have audit tables
+#### Setting-up the Application
+1. Using command prompt, make sure you are currently pointing to the Kokak Lush main folder which contains the *package.json*.
+2. Input command `npm install`.
+3. Input command `bower install`.
+
+#### Running the Backend
+1. Using command prompt, go to the following path: `app/src/backend/`.
+2. Input command `node Backend.main.js`.
+
+#### Building the Frontend
+1. Using command prompt, go to Kokak Lush main folder.
+2. Create a new folder called *nwjs*.
+3. Download current [NWJS.io normal version](https://nwjs.io/).
+4. Extract the zip file and copy the contents to the created *nwjs* folder.
+5. From the main folder, input command `grunt build-dev`.
+6. A **_dist_** folder should be automatically created.
+
+#### Running the Frontend Application
+1. Go to *dist* folder.
+2. Make sure backend application is running at *localhost:3000*.
+3. Double click **_nw.exe_**.
+4. By default, Kokak Lush - Admin Mode is launched.
+
+#### Running Admin and Frog Modes at the same time
+Kokak Lush frontend has 2 modes: **admin mode** and **frog mode**. To run both modes at the same time, just follow the following simple steps:
