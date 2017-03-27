@@ -34,6 +34,33 @@
 				return $http(req);
 			};
 
+			svc.getWorklist = function () {
+				var req = {
+					method: 'GET',
+					url: 'api/pondAdmin/worklist'
+				};
+
+				return $http(req);
+			};
+
+			svc.getWorklistPhases = function (pondId) {
+				var req = {
+					method: 'GET',
+					url: 'api/pond/' + pondId + '/worklist/phases'
+				};
+
+				return $http(req);
+			};
+
+			svc.getDevelopmentList = function (phaseId) {
+				var req = {
+					method: 'GET',
+					url: 'api/pond/phase/frog/list/' + phaseId
+				};
+
+				return $http(req);
+			};
+
 			return svc;
 		}]);
 })(); 

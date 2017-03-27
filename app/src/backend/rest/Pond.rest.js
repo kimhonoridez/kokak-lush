@@ -9,6 +9,8 @@
 
         // Phase-related  APIs
         Router.get('/api/pond/:pondId/phases', getPhases);
+        Router.get('/api/pond/:pondId/worklist/phases', getWorkspacePhases);
+        Router.get('/api/pond/phase/frog/list/:phaseId', getFrogListByPhaseId);
 
         // Questionnaire-related APIs
         Router.get('/api/pond/phase/:phaseId/questionnaire', getQuestionnaire);
@@ -107,6 +109,38 @@
         function getPhases(req, res) {
             if (req.params.pondId) {
                 PondSvc.getPhases(req.params.pondId, function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        result[i] = Camel.camelizeKeys(result[i]);
+                    }
+                    res.status(200).json({code: "SUCCESS", result: result});
+                }, function(err) {
+                    res.status(500).json({code: "E_000"});
+                });
+            }
+            else {
+                res.status(500).json({code: "E_001"});
+            }
+        }
+
+        function getWorkspacePhases(req, res) {
+            if (req.params.pondId) {
+                PondSvc.getWorspacePhases(req.params.pondId, function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        result[i] = Camel.camelizeKeys(result[i]);
+                    }
+                    res.status(200).json({code: "SUCCESS", result: result});
+                }, function(err) {
+                    res.status(500).json({code: "E_000"});
+                });
+            }
+            else {
+                res.status(500).json({code: "E_001"});
+            }
+        }
+
+        function getFrogListByPhaseId (req, res) {
+            if (req.params.phaseId) {
+                PondSvc.getFrogListByPhaseId(req.params.phaseId, function (result) {
                     for (var i = 0; i < result.length; i++) {
                         result[i] = Camel.camelizeKeys(result[i]);
                     }

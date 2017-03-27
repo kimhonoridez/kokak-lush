@@ -11,6 +11,7 @@
 		Router.get('/apiOut/pondAdmin/test', test);
 
 		Router.get('/api/pondAdmin/search', search);
+		Router.get('/api/pondAdmin/worklist', getWorklist);
 
 		// Get the complete list of pond admins
 		function getAll(req, res) {
@@ -209,6 +210,18 @@
 					res.status(500).json({code: "E_000"});
 				});
 			}
+		}
+
+		function getWorklist (req, res) {
+			PondAdminSvc.getWorklist(req.session.userId, function (data) {
+				for (var i = 0; i < data.rows.length; i++) {
+					data.rows[i] = Camel.camelizeKeys(data.rows[i]);
+				}
+
+				res.status(200).json({code: "SUCCESS", result: data.rows});
+			}, function (err) {
+				res.status(500).json({code: "E_000"});
+			});
 		}
 	};
 })();

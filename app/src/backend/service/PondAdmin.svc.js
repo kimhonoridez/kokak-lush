@@ -72,6 +72,25 @@
 			});
 		};
 
+		PondAdmin.getWorklist = function (pondAdminId, successCallback, failCallback) {
+			DB.connect(function (err, client, done) {
+				var sql = 'SELECT pond.pond_id, pond.pond_name, COUNT(trx_enrolment.enrolment_id) as frog_count FROM pond LEFT JOIN trx_enrolment ON trx_enrolment.pond_id = pond.pond_id WHERE pond.created_by=$1 GROUP BY pond.pond_id';
+				var params = [pondAdminId];
+
+				client.query(sql, params, function (err, result) {
+					done();
+
+					if (err) {
+						console.error('ERROR: PondAdmin Get Worklist', err);
+						failCallback(err);
+						return;
+					}
+
+					successCallback(result);
+				});
+			});
+		};
+
 		PondAdmin.usernameExists = function (username, successCallback, failCallback) {
 			DB.connect(function (err, client, done) {
 				client.query('SELECT * FROM teacher WHERE username=$1', [username], function (err, result) {

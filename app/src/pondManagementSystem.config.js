@@ -29,7 +29,7 @@
 			$urlRouterProvider.otherwise('/login');
 		}])
 		.run(['$rootScope', 'USER_TYPE', 'MsgType', 'MsgPosterSvc', 'MasterDataSvc', function ($rootScope, USER_TYPE, MsgType, MsgPosterSvc, MasterDataSvc) {
-			$rootScope.CURRENT_USER_TYPE = USER_TYPE.FROG;
+			$rootScope.CURRENT_USER_TYPE = USER_TYPE.ADMIN;
 			$rootScope.MsgType = MsgType;
 
 			$rootScope.hasSpecialChars = function (str) {

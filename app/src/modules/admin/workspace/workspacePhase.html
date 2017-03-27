@@ -1,0 +1,29 @@
+<div ng-controller="workspacePhaseCtrl as phase">
+    <div class="panel panel-default">
+        <div class="panel-heading heading-big">Pond
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4">Pond Name</label>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="25" disabled="disabled" placeholder="Pond Name" class="form-control" ng-model="phase.pondName"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="panel-footer clearfix">
+            <input type="button" value="Back" class="btn btn-default btn-sm" ng-click="phase.back()"/>
+        </div> 
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading heading-big">Phases</div>
+        <div class="panel-body">
+            <div kendo-grid="phaseGrid" options="phaseGridOptions"></div>
+        </div>
+    </div>
+</div>

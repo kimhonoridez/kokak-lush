@@ -2,6 +2,16 @@
 	<div class="panel-heading">Questionnaire</div>
 	<div class="panel-body">
         <div class="alert alert-danger" role="alert" ng-if="vm.messages.length" ng-repeat="item in vm.messages">{{ item }}</div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-md-4">Score</label>
+                    <div class="col-md-8"><input type="number" min="0" max="50" ng-model="vm.score" placeholder="Score" class="form-control" ng-disabled="!vm.isAdmin"/></div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+        <hr/>
         <table class="table">
             <thead>
                 <tr>
@@ -15,8 +25,10 @@
                 <tr ng-repeat="item in vm.questionList">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ item.question }}</td>
-                    <td><textarea class="form-control" ng-model="vm.answerSheet[$index].answer" ng-disabled="!vm.editMode"></textarea></td>
-                    <td ng-if="$root.CURRENT_USER_TYPE === 'ADMIN'"><textarea class="form-control" ng-model="vm.remarkList[$index].remark" ng-disabled="!vm.editMode"></textarea></td>
+                    <td ng-if="!vm.isAdmin"><textarea class="form-control" ng-model="vm.answerSheet[$index].answer" ng-disabled="!vm.editMode"></textarea></td>
+
+                    <td ng-if="vm.isAdmin">{{ vm.answerSheet[$index].answer }}</td>
+                    <td ng-if="vm.isAdmin"><textarea class="form-control" ng-model="vm.remarkList[$index].remark" ng-disabled="!vm.editMode"></textarea></td>
                 </tr>
             </tbody>
         </table>

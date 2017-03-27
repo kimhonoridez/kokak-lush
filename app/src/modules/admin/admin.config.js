@@ -12,6 +12,28 @@
 						pondAdminCriteria: undefined
 					}
 				})
+				.state('app.workspace', {
+					url: '/workspace',
+					templateUrl: 'app/src/modules/admin/workspace/workspace.html'
+				})
+				.state('app.workspacePhases', {
+					url: '/workspacePhases',
+					templateUrl: 'app/src/modules/admin/workspace/workspacePhase.html',
+					params: {
+						pondId: undefined,
+						pondName: undefined
+					}
+				})
+				.state('app.developmentList', {
+					url: '/workspacePhases',
+					templateUrl: 'app/src/modules/admin/workspace/developmentList.html',
+					params: {
+						pondId: undefined,
+						pondName: undefined,
+						phaseId: undefined,
+						phaseName: undefined
+					}
+				})
 				.state('pondAdminRegistration', {
 					url: '/pondAdminRegistration',
 					templateUrl: 'app/src/modules/admin/registration/registration.html'

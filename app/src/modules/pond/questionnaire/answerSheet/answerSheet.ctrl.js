@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('pond')
-		.controller('answerSheetCtrl', ['$scope', '$uibModalInstance', 'data', '$sce', '$timeout', 'QuestionnaireSvc', 'MsgPosterSvc', 'userInfoSvc', function ($scope, $uibModalInstance, data, $sce, $timeout, QuestionnaireSvc, MsgPosterSvc, userInfoSvc) {			
+		.controller('answerSheetCtrl', ['$scope', '$uibModalInstance', 'data', '$sce', '$timeout', 'QuestionnaireSvc', 'MsgPosterSvc', 'userInfoSvc', 'USER_TYPE', function ($scope, $uibModalInstance, data, $sce, $timeout, QuestionnaireSvc, MsgPosterSvc, userInfoSvc, USER_TYPE) {			
 			console.log(data);
 			var vm = this;
 			var MAX_QUESTIONS = 5;
@@ -13,6 +13,7 @@
 			vm.remarkList = [];
 			vm.origRemarkList = [];
 			vm.score = 0;
+			vm.isAdmin = $scope.$root.CURRENT_USER_TYPE === USER_TYPE.ADMIN;
 
 			vm.questionnaireData = undefined;
 			vm.editMode = false;
@@ -96,7 +97,7 @@
 				}
 			}
 
-			var frogId = $scope.$root.CURRENT_USER_TYPE === "ADMIN" ? $state.params.frogId : userInfoSvc.getUserInfo().frogId;
+			var frogId = $scope.$root.CURRENT_USER_TYPE === USER_TYPE.ADMIN ? data.frogId : userInfoSvc.getUserInfo().frogId;
 			QuestionnaireSvc.getQuestionnaireAndAnswer(data.phaseId, frogId).then(function (res) {
 				if (res.data.code === 'SUCCESS') {
 					vm.questionnaireData = res.data.result;
