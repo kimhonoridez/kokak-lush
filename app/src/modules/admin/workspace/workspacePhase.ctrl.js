@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('admin')
-        .controller('workspacePhaseCtrl', ['$scope', '$state', '$uibModal', 'AdminSvc', 'MsgPosterSvc', function ($scope, $state, $uibModal, AdminSvc, MsgPosterSvc) {
+        .controller('workspacePhaseCtrl', ['$scope', '$state', '$uibModal', 'AdminSvc', 'MsgPosterSvc', 'QuestionnaireSvc', function ($scope, $state, $uibModal, AdminSvc, MsgPosterSvc, QuestionnaireSvc) {
             var vm = this;
 
             vm.pondName = $state.params.pondName;
@@ -64,18 +64,48 @@
                     },
                     {
                         command: {
-                            template: '<input type="button" class="btn btn-primary k-grid-challengeCommand" value="Frog List" ng-click="frogList($event)"/>',
+                            template: '<input type="button" class="btn btn-primary k-grid-challengeCommand" value="Frog List" ng-click="frogList($event)"/><input type="button" class="btn btn-danger k-grid-lockCommand" style="margin-left: 10px" value="Lock" ng-click="lock($event)"/>',
                             visible: function(dataItem) { 
                                 return dataItem.phaseId === currentPhaseId;
                             }
                         },
                         title: " ",
                         width: "250px"
-                    }]
+                    }],
+                dataBound: function (e) {
+                    var grid = this;
+
+                    grid.tbody.find("tr[role='row']").each(function () {
+                        var model = grid.dataItem(this);
+
+                        if (model.status === false) {
+                            // Mark this phase as completed
+                            angular.element(this).find(".k-grid-lockCommand").remove();
+                        }
+                    });
+                }
             };
 
             vm.back = function () {
                 $state.go('app.workspace');
+            };
+
+            $scope.lock = function (e) {
+                e.preventDefault();
+                var data = this.dataItem.toJSON();
+
+                // Lock
+                QuestionnaireSvc.lockQuestionnaire(data.questionId).then(function (res) {
+                    MsgPosterSvc.successMsgCode('S_000');
+
+                    if ($scope.phaseGrid) {
+                        $scope.phaseGrid.dataSource.read();
+                    }
+                }, function (res) {
+                    if (res.data.code) {
+                        MsgPosterSvc.getMsg(res.data.code);
+                    }
+                });
             };
 
             $scope.frogList = function (e) {

@@ -76,7 +76,19 @@
                         },
                         title: " ",
                         width: "250px"
-                    }]
+                    }],
+                dataBound: function (e) {
+                    var grid = this;
+
+                    grid.tbody.find("tr[role='row']").each(function () {
+                        var model = grid.dataItem(this);
+
+                        if (model.checkDate) {
+                            // Mark this phase as completed
+                            angular.element(this).find("td:last").html("Checked").addClass("completed");
+                        }
+                    });
+                }
             };
 
             vm.back = function () {
@@ -87,6 +99,7 @@
                 e.preventDefault();
                 var data = this.dataItem.toJSON();
                 data.phaseId = parseInt($state.params.phaseId);
+                data.isChecking = true;
 
                 var modalInstance = $uibModal.open({
                     templateUrl : '/app/src/modules/pond/questionnaire/answerSheet/answerSheet.html',
@@ -95,7 +108,10 @@
                         data: data
                     }
                 }).result.then(function () {
-                    // Do Nothing
+                    // Refresh Grid
+                    if ($scope.phaseGrid) {
+                        $scope.phaseGrid.dataSource.read();
+                    }
                 }, function () {
                     // Do Nothing
                 });

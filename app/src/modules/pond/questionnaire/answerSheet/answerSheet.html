@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-md-4">Score</label>
-                    <div class="col-md-8"><input type="number" min="0" max="50" ng-model="vm.score" placeholder="Score" class="form-control" ng-disabled="!vm.isAdmin"/></div>
+                    <div class="col-md-8"><input type="number" min="0" max="50" ng-model="vm.score" placeholder="Score" class="form-control" ng-disabled="!(vm.isAdmin && vm.editMode)"/></div>
                 </div>
             </div>
             <div class="col-md-6"></div>
@@ -36,7 +36,7 @@
 	<div class="panel-footer clearfix">
         <div ng-if="!vm.editMode">
             <input type="button" value="Close" class="btn btn-default pull-right" ng-click="vm.close()"/>
-    		<input type="submit" value="Answer" ng-if="!vm.questionnaireData || (vm.questionnaireData && vm.questionnaireData.status)" class="btn btn-primary pull-right" ng-click="vm.edit()"/>
+    		<input type="submit" value="Edit" ng-if="!vm.questionnaireData || (vm.questionnaireData && vm.questionnaireData.status) || vm.isCheckMode" class="btn btn-primary pull-right" ng-click="vm.edit()"/>
         </div>
         <div ng-if="vm.editMode">
             <input type="submit" value="Save" class="btn btn-primary pull-right" ng-click="vm.update()"/>

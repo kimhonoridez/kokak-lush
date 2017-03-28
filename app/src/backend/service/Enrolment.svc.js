@@ -71,8 +71,10 @@
         Enrolment.getEnrolmentPhasesFrog = function (enrolmentId, successCallback, failCallback) {
             DB.connect(function (err, client, done) {
                 var dataSet = [enrolmentId];
-                var sql = 'SELECT phase.phase_id, phase.seq_no, phase.phase_name, phase.end_Date FROM phase ';
+                var sql = 'SELECT phase.phase_id, phase.seq_no, phase.phase_name, phase.end_Date, trx_answer.score FROM phase ';
                 sql += 'LEFT JOIN trx_enrolment ON phase.pond_id = trx_enrolment.pond_id ';
+                sql += 'LEFT JOIN questionnaire ON questionnaire.phase_id = phase.phase_id ';
+                sql += 'LEFT JOIN trx_answer ON trx_answer.question_id = questionnaire.question_id AND trx_answer.enrolment_id = trx_enrolment.enrolment_id ';
                 sql += 'WHERE trx_enrolment.enrolment_id=$1';
 
                 client.query(sql, dataSet, function (err, result) {
@@ -106,6 +108,43 @@
                     }
 
                     successCallback(result);
+                });
+            });
+        };
+
+        Enrolment.updateCurrentPhase = function (enrolmentId, pondId, seqNo, successCallback, failCallback) {
+            DB.connect(function (err, client, done) {
+                var sql = "SELECT phase.phase_id FROM phase WHERE phase.pond_id = $1 AND phase.seq_no = $2";
+                var dataSet = [pondId, seqNo + 1];
+
+                client.query(sql, dataSet, function (err, result) {
+                    if (err) {
+                        console.error('ERROR: Update Enrolment Current Phase', err);
+                        failCallback(err);
+                        return;
+                    }
+
+                    if (result.rows.length) {
+                        var phaseId = result.rows[0].phase_id;
+
+                        sql = "UPDATE trx_enrolment SET current_phase_id = $2 WHERE enrolment_id = $1";
+                        dataSet = [enrolmentId, phaseId];
+                        client.query(sql, dataSet, function (err, result) {
+                            done();
+
+                            if (err) {
+                                console.error('ERROR: Update Enrolment Current Phase', err);
+                                failCallback(err);
+                                return;
+                            }
+
+                            successCallback(result);
+                        });
+                    }
+                    else {
+                        successCallback(result);
+                    }
+
                 });
             });
         };

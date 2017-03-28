@@ -187,13 +187,29 @@
             });
         };
 
+        Pond.getCurrentPhase = function (enrolmentId, successCallback, failCallback) {
+            DB.connect(function (err, client, done) {
+                client.query('SELECT phase.phase_id, phase.pond_id, phase.seq_no FROM phase LEFT JOIN trx_enrolment ON trx_enrolment.current_phase_id = phase.phase_id WHERE trx_enrolment.enrolment_id = $1', [enrolmentId], function (err, result) {
+                    done();
+
+                    if (err) {
+                        console.error('ERROR: Pond Get Phases', err);
+                        failCallback(err);
+                        return;
+                    }
+
+                    successCallback(result.rows);
+                });
+            });
+        };
+
         Pond.getWorspacePhases = function (pondId, successCallback, failCallback) {
             DB.connect(function (err, client, done) {
-                var sql = "SELECT phase.phase_id, phase.seq_no, phase.phase_name, phase.start_date, phase.end_date, questionnaire.status, COUNT(trx_answer.answer_id) as engaged_frogs FROM phase ";
+                var sql = "SELECT phase.phase_id, phase.seq_no, phase.phase_name, phase.start_date, phase.end_date, questionnaire.status, questionnaire.question_id, COUNT(trx_answer.answer_id) as engaged_frogs FROM phase ";
                 sql += "LEFT JOIN questionnaire on questionnaire.phase_id = phase.phase_id ";
                 sql += "LEFT JOIN trx_answer on trx_answer.question_id = questionnaire.question_id ";
                 sql += "WHERE phase.pond_id = $1 ";
-                sql += "GROUP BY phase.phase_id, phase.seq_no, phase.phase_name, phase.start_date, phase.end_date, questionnaire.status ";
+                sql += "GROUP BY phase.phase_id, phase.seq_no, phase.phase_name, phase.start_date, phase.end_date, questionnaire.status, questionnaire.question_id ";
                 sql += "ORDER BY phase.seq_no";
                 
                 client.query(sql, [pondId], function (err, result) {
@@ -213,7 +229,7 @@
 
         Pond.getFrogListByPhaseId = function (phaseId, successCallback, failCallback) {
             DB.connect(function (err, client, done) {
-                var sql = "SELECT trx_answer.answer_id, trx_answer.enrolment_id, trx_enrolment.frog_id, CONCAT(frog.first_name, \' \', frog.last_name) as frog_name, trx_answer.update_date, trx_answer.score, trx_answer.check_date FROM trx_answer ";
+                var sql = "SELECT trx_answer.answer_id, trx_answer.question_id, trx_answer.enrolment_id, trx_enrolment.frog_id, CONCAT(frog.first_name, \' \', frog.last_name) as frog_name, trx_answer.update_date, trx_answer.score, trx_answer.check_date FROM trx_answer ";
                 sql += "LEFT JOIN questionnaire ON questionnaire.question_id = trx_answer.question_id ";
                 sql += "LEFT JOIN trx_enrolment ON trx_enrolment.enrolment_id = trx_answer.enrolment_id ";
                 sql += "LEFT JOIN frog ON frog.frog_id = trx_enrolment.frog_id ";

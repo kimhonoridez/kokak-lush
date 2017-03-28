@@ -17,6 +17,7 @@
 
 			vm.questionnaireData = undefined;
 			vm.editMode = false;
+			vm.isCheckMode = data.isChecking === true;
 			vm.messages = [];
 			
 			vm.close = function () {
@@ -42,7 +43,7 @@
 						questionId: parseInt(vm.questionnaireData.questionId)
 					};
 
-					if ($scope.$root.CURRENT_USER_TYPE === "ADMIN") {
+					if ($scope.$root.CURRENT_USER_TYPE === USER_TYPE.ADMIN) {
 						// Sanitize Remarks
 						/*for (var i = 0; i < vm.remarkList.length; i++) {
 							vm.remarkList[i] = $sce.trustAsHtml(vm.remarkList[i]);
@@ -102,6 +103,7 @@
 				if (res.data.code === 'SUCCESS') {
 					vm.questionnaireData = res.data.result;
 					vm.questionList = vm.questionnaireData.questions;
+					vm.score = vm.questionnaireData.score || 0;
 
 					// Create Empty Answers
 					if (!res.data.result.answer) {
@@ -109,6 +111,7 @@
 					}
 					else  {
 						vm.answerSheet = vm.questionnaireData.answer;
+						vm.origAnswerSheet = vm.questionnaireData.answer;
 					}
 
 					// Create Empty Remarks
@@ -117,6 +120,7 @@
 					}
 					else {
 						vm.remarkList = vm.questionnaireData.remark;
+						vm.origRemarkList = vm.questionnaireData.remark;
 					}
 				}
 				else {

@@ -35,8 +35,8 @@
                 var dataSet = [data.answerId];
 
                 if (data.score || (data.remark && data.remark.length)) {
-                    sql += "score = $2 ";
-                    sql += "remark = $3 ";
+                    sql += "score = $2, ";
+                    sql += "remark = $3, ";
                     sql += "check_date = NOW() ";
 
                     dataSet.push(data.score);

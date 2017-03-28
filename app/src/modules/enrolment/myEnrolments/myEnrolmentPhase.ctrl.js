@@ -54,6 +54,10 @@
                         template: "#= endDate.substr(0, 10) #"
                     },
                     {
+                        field: "score",
+                        title: "Score"
+                    },
+                    {
                         command: {
                             template: '<input type="button" class="btn btn-primary k-grid-challengeCommand" value="Challenge" ng-click="challenge($event)"/>',
                             visible: function(dataItem) { 
@@ -69,7 +73,7 @@
                     grid.tbody.find("tr[role='row']").each(function () {
                         var model = grid.dataItem(this);
                         
-                        if (model.phaseId < $scope.currentPhaseId) {
+                        if (model.phaseId < $scope.currentPhaseId || (model.score !== null && model.score !== undefined)) {
                             // Mark this phase as completed
                             angular.element(this).find("td:last").html("Completed").addClass("completed");
                         }
