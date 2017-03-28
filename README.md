@@ -19,7 +19,7 @@ To streamline building of the application, I created a grunt task.
 Supposedly, I was about to use Karma + Jasmine but because it's already long overdue so I was not able to integrate.
 
 ### Other Highlights
-Previously, I created an authorization frontend framework which I have partly applied to this application. For more details, please visit and download [Kahayag](https://github.com/kimhonoridez/kahayag).
+Previously, I created a frontend authorization framework which I have partly applied to this application. For more details, please visit and download [Kahayag](https://github.com/kimhonoridez/kahayag).
 
 -------
 
@@ -83,3 +83,11 @@ Kokak Lush frontend has 2 modes: **admin mode** and **frog mode**. To run both m
 
 #### Known Issues
 Known Issues are listed down in the [Issues](https://github.com/kimhonoridez/kokak-lush/issues) section.
+
+-------
+
+### Data Setup
+Please setup Admin data before anything else.
+1. Register a pond admin user.
+2. Create a pond where pond phases will be auto-created for you.
+3. Add challenge questions to each phase.
