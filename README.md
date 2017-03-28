@@ -5,6 +5,24 @@
 Pond Admins can manage ponds and the frogs in them.
 Frogs can mate in their selected ponds and develop their eggs into full grown adult frogs.
 
+### Techology Used
+I wanted to separate frontend and backend development because to me both worlds have their own rightful strengths.
+
+At frontend, Angular JS + Kendo UI is preferred. Angular JS supports single page application, secured and lightweight, has easy state management, and promotes modularity of codes through its MVC & MVVM Design Patterns. Since the application is mainly using Grids for it's display, I decided to use Kendo UI on top of Angular JS.
+
+For the backend side, I wanted to challenge myself in using Express JS + PostgreSQL for my RESTful services instead of my comfort zone - Java + Spring + Hibernate.
+
+To manage external libraries, I used NPM and Bower.
+To streamline building of the application, I created a grunt task.
+
+### Testing
+Supposedly, I was about to use Karma + Jasmine but because it's already long overdue so I was not able to integrate.
+
+### Other Highlights
+Previously, I created an authorization frontend framework which I have partly applied to this application. For more details, please visit and download [Kahayag](https://github.com/kimhonoridez/kahayag).
+
+-------
+
 ### Environment Setup
 #### Pre-requisites
 1. [Node JS](https://nodejs.org/en/download/)
