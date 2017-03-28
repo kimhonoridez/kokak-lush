@@ -23,7 +23,7 @@ Previously, I created a frontend authorization framework which I have partly app
 
 -------
 
-### Environment Setup
+### Environment Setup (Windows)
 #### Pre-requisites
 1. [Node JS](https://nodejs.org/en/download/)
 2. [Grunt CLI](https://gruntjs.com/getting-started#installing-the-cli)
